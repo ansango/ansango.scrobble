@@ -1,0 +1,43 @@
+{
+  "header": {
+    "nav": [
+      {
+        "href": "series",
+        "label": "series"
+      },
+      {
+        "href": "sobremi",
+        "label": "sobre mi"
+      }
+    ]
+  },
+  "footer": {
+    "links": [
+      {
+        "href": "",
+        "label": "inicio"
+      },
+      {
+        "href": "series",
+        "label": "series"
+      },
+      {
+        "href": "sobremi",
+        "label": "sobre mi"
+      }
+    ],
+    "social": [
+      {
+        "href": "https://www.instagram.com/iamasync/",
+        "label": "instagram"
+      },
+      {
+        "href": "https://github.com/ansango/",
+        "label": "github"
+      }
+    ]
+  },
+  "defaultBucket": {
+    "baseUrl": "https://asg-cms.s3.eu-west-3.amazonaws.com"
+  }
+}

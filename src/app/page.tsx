@@ -1,91 +1,90 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+import LastFmApi from "@/lib/lastfm";
 
-const inter = Inter({ subsets: ['latin'] })
+const lastFM = LastFmApi();
 
-export default function Home() {
+const {
+  config: { username },
+  method: { user },
+  getRecentTracks,
+  getTopAlbums,
+  getTopArtists,
+  getLovedTracks,
+  getTopTracks,
+} = lastFM;
+
+const recentTracks = async () => await getRecentTracks(user.recent_tracks, username, "7days", "10");
+
+const topAlbums = async () => await getTopAlbums(user.top_albums, username, "overall", "10");
+
+const topArtists = async () => await getTopArtists(user.top_artists, username, "overall", "10");
+
+const lovedTracks = async () => await getLovedTracks(user.loved_tracks, username, "overall", "10");
+
+const topTracks = async () => await getTopTracks(user.top_tracks, username, "overall", "10");
+
+export default async function Home() {
+  const { recenttracks } = await recentTracks();
+  const { topalbums } = await topAlbums();
+  const { topartists } = await topArtists();
+  const { lovedtracks } = await lovedTracks();
+  const { toptracks } = await topTracks();
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main className="p-5 grid gap-5 grid-cols-12 md:gap-10">
+      <section className="col-span-12 sm:col-span-6 md:col-span-4">
+        <h2>Recent Tracks</h2>
+        <ul>
+          {recenttracks.track.map((track) => (
+            <li key={track.url}>
+              <h3>{track.name}</h3>
+              <p>{track.artist["#text"]}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="col-span-12 sm:col-span-6 md:col-span-4">
+        <h2>Top Albums</h2>
+        <ul>
+          {topalbums.album.map((album, index) => (
+            <li key={`${album.name}-${index}`}>
+              <h3>{album.name}</h3>
+              <p>{album.artist.name}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="col-span-12 sm:col-span-6 md:col-span-4">
+        <h2>Top Artists</h2>
+        <ul>
+          {topartists.artist.map((artist, index) => (
+            <li key={`${artist.name}-${index}`}>
+              <h3>{artist.name}</h3>
+              <p>{artist.playcount}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="col-span-12 sm:col-span-6 md:col-span-4">
+        <h2>Loved Tracks</h2>
+        <ul>
+          {lovedtracks.track.map((track) => (
+            <li key={track.url}>
+              <h3>{track.name}</h3>
+              <p>{track.artist["#text"]}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="col-span-12 sm:col-span-6 md:col-span-4">
+        <h2>Top Tracks</h2>
+        <ul>
+          {toptracks.track.map((track) => (
+            <li key={track.url}>
+              <h3>{track.name}</h3>
+              <p>{track.artist.name}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </main>
-  )
+  );
 }
