@@ -3,6 +3,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 
 import { Container } from "../container";
+import { useMounted } from "@/hooks";
 
 type LinkJSON = {
   label: string;
@@ -14,13 +15,19 @@ type Props = {
 };
 
 const ThemeChanger = () => {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const mounted = useMounted();
 
   return (
-    <div>
-      <button onClick={() => setTheme("light")}>Light Mode</button>
-      <button onClick={() => setTheme("dark")}>Dark Mode</button>
-    </div>
+    <>
+      {mounted && (
+        <>
+          <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            {theme === "dark" ? "🌞" : "🌙"}
+          </button>
+        </>
+      )}
+    </>
   );
 };
 
