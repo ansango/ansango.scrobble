@@ -2,12 +2,8 @@
   "header": {
     "nav": [
       {
-        "href": "series",
-        "label": "series"
-      },
-      {
-        "href": "sobremi",
-        "label": "sobre mi"
+        "href": "",
+        "label": ""
       }
     ]
   },
@@ -16,14 +12,6 @@
       {
         "href": "",
         "label": "inicio"
-      },
-      {
-        "href": "series",
-        "label": "series"
-      },
-      {
-        "href": "sobremi",
-        "label": "sobre mi"
       }
     ],
     "social": [
@@ -36,8 +24,5 @@
         "label": "github"
       }
     ]
-  },
-  "defaultBucket": {
-    "baseUrl": "https://asg-cms.s3.eu-west-3.amazonaws.com"
   }
 }
