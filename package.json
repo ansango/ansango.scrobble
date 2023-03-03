@@ -1,5 +1,5 @@
 {
-  "name": "prompter",
+  "name": "next-scrobbler",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@next/mdx": "^13.2.3",
+    "cross-fetch": "^3.1.5",
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
