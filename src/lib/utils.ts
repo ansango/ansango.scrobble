@@ -1,8 +1,4 @@
-export const formatDate = (
-  date: Date,
-  locale: string = "es-ES",
-  options?: Intl.DateTimeFormatOptions
-) => {
+export const formatDate = (date: Date, locale = "es-ES", options?: Intl.DateTimeFormatOptions) => {
   const defaultOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",

@@ -8,10 +8,6 @@ export interface LovedTracksResponse {
   lovedtracks: LovedTracks;
 }
 
-export interface LovedTracks {
-  track: Track[];
-  "@attr": Attr;
-}
 export interface TopAlbumsResponse {
   topalbums: TopAlbums;
 }
@@ -31,11 +27,6 @@ export interface UserResponse {
 
 export interface RecentTracksResponse {
   recenttracks: RecentTracks;
-}
-
-export interface RecentTracks {
-  track: Track[];
-  "@attr": Attr2;
 }
 
 export interface LoveTracksResponse {
@@ -66,11 +57,6 @@ export interface TopArtists {
 
 export interface WeeklyArtistChartResponse {
   weeklyartistchart: WeeklyArtistChart;
-}
-
-export interface WeeklyArtistChart {
-  artist: Artist[];
-  "@attr": Attr2;
 }
 
 export interface WeeklyAlbumChartResponse {
@@ -211,10 +197,6 @@ export interface TopAlbums {
   "@attr": Attr2;
 }
 
-export interface WeeklyArtistChartResponse {
-  weeklyartistchart: WeeklyArtistChart;
-}
-
 export interface WeeklyArtistChart {
   artist: Artist[];
   "@attr": Attr2;
@@ -222,12 +204,6 @@ export interface WeeklyArtistChart {
 
 export interface Attr1 {
   rank: string;
-}
-
-export interface Attr2 {
-  from: string;
-  user: string;
-  to: string;
 }
 
 export interface WeeklyChartListResponse {

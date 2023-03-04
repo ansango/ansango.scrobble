@@ -1,7 +1,8 @@
+import Image from "next/image";
+
 import { Container } from "@/components";
 import { formatDate } from "@/lib";
 import LastFmApi from "@/lib/lastfm";
-import Image from "next/image";
 
 const lastFM = LastFmApi();
 

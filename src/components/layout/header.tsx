@@ -1,9 +1,11 @@
 import type { FC } from "react";
-import { useTheme } from "next-themes";
+
 import Link from "next/link";
+import { useTheme } from "next-themes";
+
+import { useMounted } from "@/hooks";
 
 import { Container } from "../container";
-import { useMounted } from "@/hooks";
 
 type LinkJSON = {
   label: string;

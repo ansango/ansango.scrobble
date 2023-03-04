@@ -1,8 +1,9 @@
 "use client";
 
 import type { FC, ReactNode } from "react";
-import { ThemeProvider } from "next-themes";
+
 import { IBM_Plex_Sans, Gloock } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 const serif = Gloock({
   weight: ["400"],

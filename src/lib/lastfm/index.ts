@@ -1,7 +1,7 @@
 import config from "./config";
 import method from "./method";
 import request from "./request";
-import {
+import type {
   AuthResponse,
   LovedTracksResponse,
   Period,

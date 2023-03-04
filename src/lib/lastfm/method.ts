@@ -1,4 +1,4 @@
-export default {
+const method = {
   auth: "auth.getToken",
   user: {
     getInfo: "user.getInfo",
@@ -13,3 +13,4 @@ export default {
     weekly_track_chart: "user.getWeeklyTrackChart",
   },
 };
+export default method;
