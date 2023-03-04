@@ -1,3 +1,5 @@
+export type Period = "overall" | "7day" | "1month" | "3month" | "6month" | "12month";
+
 export interface AuthResponse {
   token: string;
 }
@@ -278,7 +280,7 @@ export interface WeeklyTrackChartAttr2 {
 }
 
 export const LastFmApi: () => {
-  auth: (method: string, user: string, period: string, limit: number) => Promise<AuthResponse>;
+  auth: (method: string, user: string, period: Period, limit: number) => Promise<AuthResponse>;
   config: {
     api_key: string;
     app_name: string;
@@ -290,59 +292,59 @@ export const LastFmApi: () => {
     share_secret: string;
     username: string;
   };
-  getInfo: (method: string, user: string, period: string, limit: number) => Promise<UserResponse>;
+  getInfo: (method: string, user: string, period: Period, limit: number) => Promise<UserResponse>;
   getLovedTracks: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<LovedTracksResponse>;
   getRecentTracks: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<RecentTracksResponse>;
   getTopAlbums: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<TopAlbumsResponse>;
   getTopArtists: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<TopArtistsResponse>;
   getTopTracks: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<TopTrackResponse>;
   getWeeklyAlbumChart: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<WeeklyAlbumChartResponse>;
   getWeeklyArtistChart: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<WeeklyArtistChartResponse>;
   getWeeklyChartList: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<WeeklyChartListResponse>;
   getWeeklyTrackChart: (
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: number
   ) => Promise<WeeklyTrackChartResponse>;
 };

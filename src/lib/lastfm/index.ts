@@ -4,6 +4,7 @@ import request from "./request";
 import {
   AuthResponse,
   LovedTracksResponse,
+  Period,
   RecentTracksResponse,
   TopAlbumsResponse,
   TopArtistsResponse,
@@ -29,7 +30,7 @@ function LastFmApi() {
   function auth(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<AuthResponse> {
     return request(method, user, period, limit);
@@ -44,7 +45,7 @@ function LastFmApi() {
   function getInfo(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<UserResponse> {
     return request(method, user, period, limit);
@@ -59,7 +60,7 @@ function LastFmApi() {
   function getLovedTracks(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<LovedTracksResponse> {
     return request(method, user, period, limit);
@@ -74,7 +75,7 @@ function LastFmApi() {
   function getRecentTracks(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<RecentTracksResponse> {
     return request(method, user, period, limit);
@@ -89,7 +90,7 @@ function LastFmApi() {
   function getTopAlbums(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<TopAlbumsResponse> {
     return request(method, user, period, limit);
@@ -104,7 +105,7 @@ function LastFmApi() {
   function getTopArtists(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<TopArtistsResponse> {
     return request(method, user, period, limit);
@@ -119,7 +120,7 @@ function LastFmApi() {
   function getTopTracks(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<TopTrackResponse> {
     return request(method, user, period, limit);
@@ -134,7 +135,7 @@ function LastFmApi() {
   function getWeeklyAlbumChart(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<WeeklyAlbumChartResponse> {
     return request(method, user, period, limit);
@@ -149,7 +150,7 @@ function LastFmApi() {
   function getWeeklyArtistChart(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<WeeklyArtistChartResponse> {
     return request(method, user, period, limit);
@@ -164,7 +165,7 @@ function LastFmApi() {
   function getWeeklyChartList(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<WeeklyChartListResponse> {
     return request(method, user, period, limit);
@@ -179,7 +180,7 @@ function LastFmApi() {
   function getWeeklyTrackChart(
     method: string,
     user: string,
-    period: string,
+    period: Period,
     limit: string
   ): Promise<WeeklyTrackChartResponse> {
     return request(method, user, period, limit);
