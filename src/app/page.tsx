@@ -95,16 +95,7 @@ export default async function Home() {
 
               return (
                 <li key={track.url}>
-                  <a
-                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                      track.artist.name
-                    }`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-primary !font-normal"
-                  >
-                    <h3>{track.name}</h3>
-                  </a>
+                  <h3>{track.name}</h3>
                   <p className="flex space-x-2 items-baseline">
                     <span className="italic font-semibold"> {track.artist["#text"]}</span>
                     {track.date ? (
@@ -125,6 +116,27 @@ export default async function Home() {
                         </div>
                       )
                     )}
+                    <a
+                      href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                        track.artist.name
+                      }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary !font-normal self-center mt-0.5"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                        className="text-primary"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12s12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104s-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"
+                        ></path>
+                      </svg>
+                    </a>
                   </p>
                 </li>
               );
@@ -141,20 +153,33 @@ export default async function Home() {
               {topalbums.album.map((album, index) => {
                 return (
                   <li key={`${album.name}-${index}`}>
-                    <a
-                      href={`https://music.youtube.com/search?q=${album.name}${" "}${
-                        album.artist.name
-                      }`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-primary !font-normal"
-                    >
-                      <h3>{album.name}</h3>
-                    </a>
+                    <h3>{album.name}</h3>
+
                     <p className="flex space-x-2 items-baseline">
                       <span className="italic font-bold">{album.artist.name}</span>
                       <span className="text-xs text-offset self-end">*</span>
                       <span className="text-xs text-offset">{album.playcount} plays</span>
+                      <a
+                        href={`https://music.youtube.com/search?q=${album.name}${" "}${
+                          album.artist.name
+                        }`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary !font-normal self-center mt-0.5"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="1em"
+                          height="1em"
+                          viewBox="0 0 24 24"
+                          className="text-primary"
+                        >
+                          <path
+                            fill="currentColor"
+                            d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12s12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104s-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"
+                          ></path>
+                        </svg>
+                      </a>
                     </p>
                   </li>
                 );
@@ -185,16 +210,7 @@ export default async function Home() {
           <ul className="space-y-5">
             {lovedtracks.track.map((track) => (
               <li key={track.url}>
-                <a
-                  href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                    track.artist.name
-                  }`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary !font-normal"
-                >
-                  <h3>{track.name}</h3>
-                </a>
+                <h3>{track.name}</h3>
                 <p className="flex space-x-2 items-baseline">
                   <span className="italic font-semibold">{track.artist.name}</span>
                   {track.date && (
@@ -205,7 +221,28 @@ export default async function Home() {
                       </span>
                     </>
                   )}
-                </p>
+                  <a
+                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                      track.artist.name
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary !font-normal self-center mt-0.5"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      className="text-primary"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12s12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104s-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"
+                      ></path>
+                    </svg>
+                  </a>
+                </p>{" "}
               </li>
             ))}
           </ul>
@@ -218,21 +255,33 @@ export default async function Home() {
           <ul className="space-y-5">
             {toptracks.track.map((track) => (
               <li key={track.url}>
-                <a
-                  href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                    track.artist.name
-                  }`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary !font-normal"
-                >
-                  <h3>{track.name}</h3>
-                </a>
+                <h3>{track.name}</h3>
                 <p className="flex space-x-2 items-baseline">
                   <span className="italic font-bold">{track.artist.name}</span>
                   <span className="text-xs text-offset self-end">*</span>
-                  <span className="text-xs text-offset">{track.playcount} plays</span>
-                </p>
+                  <span className="text-xs text-offset">{track.playcount} plays</span>{" "}
+                  <a
+                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                      track.artist.name
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary !font-normal self-center mt-0.5"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                      className="text-primary"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12s12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104s-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"
+                      ></path>
+                    </svg>
+                  </a>
+                </p>{" "}
               </li>
             ))}
           </ul>
