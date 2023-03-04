@@ -23,6 +23,18 @@ const Title = ({ children }) => <h2>{children}</h2>;
 
 const ListContainer = ({ children }) => <ul className="space-y-5">{children}</ul>;
 
+export const formatDate = (date, locale = "es-ES", options?: Intl.DateTimeFormatOptions) => {
+  const defaultOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const _options = options || defaultOptions;
+  const now = new Date(date).toLocaleDateString(locale, _options);
+
+  return now;
+};
+
 export default async function Home() {
   const { recenttracks } = await recentTracks();
   const { topalbums } = await topAlbums();
@@ -39,7 +51,17 @@ export default async function Home() {
             {recenttracks.track.map((track) => (
               <li key={track.url}>
                 <h3>{track.name}</h3>
-                <p className="italic font-semibold">{track.artist["#text"]}</p>
+                <p className="flex space-x-2 items-baseline">
+                  <span className="italic font-semibold"> {track.artist["#text"]}</span>
+                  {track.date && (
+                    <>
+                      <span className="text-xs text-offset self-end">*</span>
+                      <span className="text-xs text-offset">
+                        {formatDate(track.date["#text"], "en-US")}
+                      </span>
+                    </>
+                  )}
+                </p>
               </li>
             ))}
           </ListContainer>
@@ -86,7 +108,17 @@ export default async function Home() {
             {lovedtracks.track.map((track) => (
               <li key={track.url}>
                 <h3>{track.name}</h3>
-                <p className="italic font-semibold">{track.artist.name}</p>
+                <p className="flex space-x-2 items-baseline">
+                  <span className="italic font-semibold">{track.artist.name}</span>
+                  {track.date && (
+                    <>
+                      <span className="text-xs text-offset self-end">*</span>
+                      <span className="text-xs text-offset">
+                        {formatDate(track.date["#text"], "en-US")}
+                      </span>
+                    </>
+                  )}
+                </p>
               </li>
             ))}
           </ListContainer>
