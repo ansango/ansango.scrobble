@@ -135,7 +135,10 @@ export interface ArtistImage {
 }
 
 export interface Album {
+  name: string;
+  artist: Artist;
   mbid: string;
+  playcount: string;
   "#text": string;
 }
 
@@ -158,6 +161,7 @@ export interface Track {
   "@attr": Attr;
   url: string;
   date: Date;
+  playcount: string;
 }
 
 export interface Attr2 {

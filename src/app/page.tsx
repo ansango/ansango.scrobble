@@ -1,4 +1,5 @@
 import { Container } from "@/components";
+import { formatDate } from "@/lib";
 import LastFmApi from "@/lib/lastfm";
 
 const lastFM = LastFmApi();
@@ -19,22 +20,6 @@ const topArtists = async () => await getTopArtists(user.top_artists, username, "
 const lovedTracks = async () => await getLovedTracks(user.loved_tracks, username, "1month", "5");
 const topTracks = async () => await getTopTracks(user.top_tracks, username, "1month", "10");
 
-const Title = ({ children }) => <h2>{children}</h2>;
-
-const ListContainer = ({ children }) => <ul className="space-y-5">{children}</ul>;
-
-export const formatDate = (date, locale = "es-ES", options?: Intl.DateTimeFormatOptions) => {
-  const defaultOptions: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  };
-  const _options = options || defaultOptions;
-  const now = new Date(date).toLocaleDateString(locale, _options);
-
-  return now;
-};
-
 export default async function Home() {
   const { recenttracks } = await recentTracks();
   const { topalbums } = await topAlbums();
@@ -46,8 +31,8 @@ export default async function Home() {
     <Container>
       <div className="grid gap-y-20 grid-cols-12 sm:gap-x-5 lg:gap-20">
         <section className="col-span-12 lg:col-span-6 xl:col-span-4 space-y-5">
-          <Title>Recent Tracks</Title>
-          <ListContainer>
+          <h2>Recent Tracks</h2>
+          <ul className="space-y-5">
             {recenttracks.track.map((track) => (
               <li key={track.url}>
                 <h3>{track.name}</h3>
@@ -57,21 +42,21 @@ export default async function Home() {
                     <>
                       <span className="text-xs text-offset self-end">*</span>
                       <span className="text-xs text-offset">
-                        {formatDate(track.date["#text"], "en-US")}
+                        {formatDate(track.date["#text"] as unknown as Date, "en-US")}
                       </span>
                     </>
                   )}
                 </p>
               </li>
             ))}
-          </ListContainer>
+          </ul>
         </section>
         <section className="col-span-12 lg:col-span-6 xl:col-span-4 space-y-5">
-          <Title>Top Albums</Title>
+          <h2>Top Albums</h2>
           <span className="font-serif text-primary text-sm tracking-normal font-normal">
             * last three months *
           </span>
-          <ListContainer>
+          <ul className="space-y-5">
             {topalbums.album.map((album, index) => (
               <li key={`${album.name}-${index}`}>
                 <h3>{album.name}</h3>
@@ -82,14 +67,14 @@ export default async function Home() {
                 </p>
               </li>
             ))}
-          </ListContainer>
+          </ul>
         </section>
         <section className="col-span-12 lg:col-span-6 xl:col-span-4 space-y-5">
-          <Title>Top Artists </Title>
+          <h2>Top Artists </h2>
           <span className="font-serif text-primary text-sm tracking-normal font-normal">
             * last three months *
           </span>
-          <ListContainer>
+          <ul className="space-y-5">
             {topartists.artist.map((artist, index) => (
               <li key={`${artist.name}-${index}`} className="flex space-x-2 items-baseline">
                 <h3>{artist.name}</h3>
@@ -97,14 +82,14 @@ export default async function Home() {
                 <p className="text-xs text-offset">{artist.playcount} plays</p>
               </li>
             ))}
-          </ListContainer>
+          </ul>
         </section>
         <section className="col-span-12 lg:col-span-6 xl:col-span-6 2xl:col-span-4 space-y-5">
-          <Title>Loved Tracks</Title>
+          <h2>Loved Tracks</h2>
           <span className="font-serif text-primary text-sm tracking-normal font-normal">
             * last month *
           </span>
-          <ListContainer>
+          <ul className="space-y-5">
             {lovedtracks.track.map((track) => (
               <li key={track.url}>
                 <h3>{track.name}</h3>
@@ -114,21 +99,21 @@ export default async function Home() {
                     <>
                       <span className="text-xs text-offset self-end">*</span>
                       <span className="text-xs text-offset">
-                        {formatDate(track.date["#text"], "en-US")}
+                        {formatDate(track.date["#text"] as unknown as Date, "en-US")}
                       </span>
                     </>
                   )}
                 </p>
               </li>
             ))}
-          </ListContainer>
+          </ul>
         </section>
         <section className="col-span-12 lg:col-span-6 xl:col-span-6 2xl:col-span-4 space-y-5">
-          <Title>Top Tracks</Title>
+          <h2>Top Tracks</h2>
           <span className="font-serif text-primary text-sm tracking-normal font-normal">
             * last month *
           </span>
-          <ListContainer>
+          <ul className="space-y-5">
             {toptracks.track.map((track) => (
               <li key={track.url}>
                 <h3>{track.name}</h3>
@@ -139,7 +124,7 @@ export default async function Home() {
                 </p>
               </li>
             ))}
-          </ListContainer>
+          </ul>
         </section>
       </div>
     </Container>
