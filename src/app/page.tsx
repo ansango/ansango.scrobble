@@ -1,9 +1,11 @@
+import { Suspense } from "react";
+
+import { MusicBrainzApi } from "musicbrainz-api";
 import Image from "next/image";
 
 import { Container } from "@/components";
 import { formatDate } from "@/lib";
 import LastFmApi from "@/lib/lastfm";
-
 const lastFM = LastFmApi();
 
 const {
@@ -93,7 +95,16 @@ export default async function Home() {
 
               return (
                 <li key={track.url}>
-                  <h3>{track.name}</h3>
+                  <a
+                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                      track.artist.name
+                    }`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary !font-normal"
+                  >
+                    <h3>{track.name}</h3>
+                  </a>
                   <p className="flex space-x-2 items-baseline">
                     <span className="italic font-semibold"> {track.artist["#text"]}</span>
                     {track.date ? (
@@ -105,10 +116,13 @@ export default async function Home() {
                       </>
                     ) : (
                       isNowPlaying && (
-                        <>
+                        <div className="relative">
                           <span className="text-xs text-offset self-end">*</span>
                           <span className="text-xs text-offset">now playing</span>
-                        </>
+
+                          <div className="absolute top-0 right-0 -mr-2 mt-1 w-2 h-2 rounded-full bg-secondary animate-ping"></div>
+                          <div className="absolute top-0 right-0 -mr-2 mt-1 w-2 h-2 rounded-full bg-secondary"></div>
+                        </div>
                       )
                     )}
                   </p>
@@ -123,16 +137,29 @@ export default async function Home() {
             * last three months *
           </span>
           <ul className="space-y-5">
-            {topalbums.album.map((album, index) => (
-              <li key={`${album.name}-${index}`}>
-                <h3>{album.name}</h3>
-                <p className="flex space-x-2 items-baseline">
-                  <span className="italic font-bold">{album.artist.name}</span>
-                  <span className="text-xs text-offset self-end">*</span>
-                  <span className="text-xs text-offset">{album.playcount} plays</span>
-                </p>
-              </li>
-            ))}
+            <Suspense fallback={<div>Loading...</div>}>
+              {topalbums.album.map((album, index) => {
+                return (
+                  <li key={`${album.name}-${index}`}>
+                    <a
+                      href={`https://music.youtube.com/search?q=${album.name}${" "}${
+                        album.artist.name
+                      }`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-primary !font-normal"
+                    >
+                      <h3>{album.name}</h3>
+                    </a>
+                    <p className="flex space-x-2 items-baseline">
+                      <span className="italic font-bold">{album.artist.name}</span>
+                      <span className="text-xs text-offset self-end">*</span>
+                      <span className="text-xs text-offset">{album.playcount} plays</span>
+                    </p>
+                  </li>
+                );
+              })}
+            </Suspense>
           </ul>
         </section>
         <section className="col-span-12 lg:col-span-6 xl:col-span-4 space-y-5">
@@ -158,7 +185,16 @@ export default async function Home() {
           <ul className="space-y-5">
             {lovedtracks.track.map((track) => (
               <li key={track.url}>
-                <h3>{track.name}</h3>
+                <a
+                  href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                    track.artist.name
+                  }`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary !font-normal"
+                >
+                  <h3>{track.name}</h3>
+                </a>
                 <p className="flex space-x-2 items-baseline">
                   <span className="italic font-semibold">{track.artist.name}</span>
                   {track.date && (
@@ -182,7 +218,16 @@ export default async function Home() {
           <ul className="space-y-5">
             {toptracks.track.map((track) => (
               <li key={track.url}>
-                <h3>{track.name}</h3>
+                <a
+                  href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                    track.artist.name
+                  }`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary !font-normal"
+                >
+                  <h3>{track.name}</h3>
+                </a>
                 <p className="flex space-x-2 items-baseline">
                   <span className="italic font-bold">{track.artist.name}</span>
                   <span className="text-xs text-offset self-end">*</span>
