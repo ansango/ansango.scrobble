@@ -4,7 +4,8 @@ const request = async <Response>(
   method: string,
   user: string,
   period?: string,
-  limit?: string
+  limit?: string,
+  next?: NextFetchRequestConfig
 ): Promise<Response> => {
   const url = `
       ${config.base_url}?method=${method}${user ? "&user=" : ""}${user}${
@@ -17,6 +18,7 @@ const request = async <Response>(
     headers: {
       "Content-Type": "application/json",
     },
+    next,
   })
     .then((res) => {
       if (res.status >= 400) {

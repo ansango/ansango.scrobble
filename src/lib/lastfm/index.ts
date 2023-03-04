@@ -31,9 +31,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<AuthResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -46,9 +47,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<UserResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -61,9 +63,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<LovedTracksResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -76,9 +79,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<RecentTracksResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -91,9 +95,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<TopAlbumsResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -106,9 +111,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<TopArtistsResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -121,9 +127,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<TopTrackResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -136,9 +143,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<WeeklyAlbumChartResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -151,9 +159,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<WeeklyArtistChartResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -166,9 +175,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<WeeklyChartListResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   /**
@@ -181,9 +191,10 @@ function LastFmApi() {
     method: string,
     user: string,
     period: Period,
-    limit: string
+    limit: string,
+    next?: NextFetchRequestConfig
   ): Promise<WeeklyTrackChartResponse> {
-    return request(method, user, period, limit);
+    return request(method, user, period, limit, next);
   }
 
   return {
