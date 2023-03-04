@@ -51,6 +51,7 @@ export default async function Home() {
           alt={user.name}
           width={100}
           height={100}
+          loading="eager"
         />
         <div className="col-span-12">
           <h1>{user.name}</h1>
