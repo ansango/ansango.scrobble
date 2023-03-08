@@ -3,14 +3,16 @@ import Image from "next/image";
 
 import { Container, LinkExternal } from "@/components";
 import { YTMusic } from "@/components/icons";
-import { formatDate, convertDate } from "@/lib";
+import { convertDate, formatDate } from "@/lib";
 
 const {
   userApiMethods: { getInfo, getRecentTracks },
 } = lastFmClient();
 
+export const revalidate = 20;
+
 export default async function Home() {
-  const { recenttracks } = await await getRecentTracks({ user: "ansango", limit: "5" });
+  const { recenttracks } = await getRecentTracks({ user: "ansango", limit: "5" });
   const { user } = await getInfo({ user: "ansango" });
 
   return (
@@ -60,46 +62,61 @@ export default async function Home() {
             * last played *
           </span>
           <ul className="space-y-5">
-            {recenttracks.track.map((track, index) => {
-              const isNowPlaying = track.date === undefined;
+            {recenttracks.track.filter((track) => track.date === undefined).length > 0 && (
+              <li className="flex flex-col space-y-2">
+                <h3>
+                  {recenttracks.track
+                    .filter((track) => track.date === undefined)
+                    .map((track) => track.name)}
+                </h3>
+                <p className="space-x-2">
+                  <span className="italic font-semibold">
+                    {recenttracks.track
+                      .filter((track) => track.date === undefined)
+                      .map((track) => track.artist["#text"])}
+                  </span>
+                  <span className="legend self-end">*</span>
+                  <span className="legend relative">
+                    now
+                    <span
+                      key={"ping"}
+                      className="absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary animate-ping"
+                    ></span>
+                    <span
+                      key={"dot"}
+                      className="absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary"
+                    ></span>
+                  </span>
+                </p>
+              </li>
+            )}
+            {recenttracks.track
+              .filter((track) => track.date !== undefined)
+              .map((track, index) => {
+                return (
+                  <li key={`${track.url}-${index}`}>
+                    <h3>
+                      {track.name}
+                      <LinkExternal
+                        href={`https://music.youtube.com/search?q=${track.name}${" "}${
+                          track.artist["#text"]
+                        }`}
+                        className="inline-block ml-2"
+                      >
+                        <YTMusic />
+                      </LinkExternal>
+                    </h3>
+                    <p className="space-x-2">
+                      <span className="italic font-semibold"> {track.artist["#text"]}</span>
 
-              return (
-                <li key={track.url}>
-                  <h3>
-                    {track.name}
-                    <LinkExternal
-                      href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                        track.artist["#text"]
-                      }`}
-                      className="inline-block ml-2"
-                    >
-                      <YTMusic />
-                    </LinkExternal>
-                  </h3>
-                  <p className="space-x-2">
-                    <span className="italic font-semibold"> {track.artist["#text"]}</span>
-
-                    <span className="legend self-end">{track.date && <>*</>}</span>
-                    <span className="legend relative">
-                      {!isNowPlaying && formatDate(track.date["#text"] as unknown as Date, "en-US")}
-                      {isNowPlaying && "now playing"}
-                      <span
-                        key={"ping"}
-                        className={`${
-                          !isNowPlaying && "hidden"
-                        } absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary animate-ping`}
-                      ></span>
-                      <span
-                        key={"dot"}
-                        className={`${
-                          !isNowPlaying && "hidden"
-                        } absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary`}
-                      ></span>
-                    </span>
-                  </p>
-                </li>
-              );
-            })}
+                      <span className="legend self-end">{track.date && <>*</>}</span>
+                      <span className="legend relative">
+                        {formatDate(track.date["#text"] as unknown as Date, "en-US")}
+                      </span>
+                    </p>
+                  </li>
+                );
+              })}
           </ul>
         </section>
       </div>
