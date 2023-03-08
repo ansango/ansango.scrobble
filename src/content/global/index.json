@@ -2,8 +2,16 @@
   "header": {
     "nav": [
       {
-        "href": "",
-        "label": ""
+        "href": "albums",
+        "label": "albums"
+      },
+      {
+        "href": "tracks",
+        "label": "tracks"
+      },
+      {
+        "href": "bands",
+        "label": "bands"
       }
     ]
   },
@@ -12,6 +20,14 @@
       {
         "href": "",
         "label": "inicio"
+      },
+      {
+        "href": "albums",
+        "label": "albums"
+      },
+      {
+        "href": "tracks",
+        "label": "tracks"
       }
     ],
     "social": [
@@ -22,6 +38,10 @@
       {
         "href": "https://github.com/ansango/",
         "label": "github"
+      },
+      {
+        "href": "bands",
+        "label": "bands"
       }
     ]
   }

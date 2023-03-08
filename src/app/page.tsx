@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import { lastFmClient } from "lastfm-client-ts";
 import Image from "next/image";
 
@@ -8,38 +6,12 @@ import { YTMusic } from "@/components/icons";
 import { formatDate, convertDate } from "@/lib";
 
 const {
-  userApiMethods: {
-    getTopAlbums,
-    getTopTracks,
-    getLovedTracks,
-    getTopArtists,
-    getInfo,
-    getRecentTracks,
-  },
+  userApiMethods: { getInfo, getRecentTracks },
 } = lastFmClient();
 
-const next: NextFetchRequestConfig = { revalidate: 30 };
-const user = "ansango";
-const limit = "10";
-const period = "3month";
-const userInfo = async () => await getInfo({ user }, { next });
-
-const recentTracks = async () => await getRecentTracks({ user, limit });
-
-const topAlbums = async () => await getTopAlbums({ user, period, limit });
-
-const topArtists = async () => await getTopArtists({ user, period, limit });
-const lovedTracks = async () => await getLovedTracks({ user, limit });
-
-const topTracks = async () => await getTopTracks({ user, period: "1month", limit });
-
 export default async function Home() {
-  const { recenttracks } = await recentTracks();
-  const { topalbums } = await topAlbums();
-  const { topartists } = await topArtists();
-  const { lovedtracks } = await lovedTracks();
-  const { toptracks } = await topTracks();
-  const { user } = await userInfo();
+  const { recenttracks } = await await getRecentTracks({ user: "ansango", limit: "5" });
+  const { user } = await getInfo({ user: "ansango" });
 
   return (
     <Container className="grid gap-20">
@@ -82,13 +54,14 @@ export default async function Home() {
       </section>
 
       <div className="grid gap-y-20 grid-cols-12 sm:gap-x-5 lg:gap-20">
-        <section className="col-span-12 lg:col-span-6 2xl:col-span-4 space-y-5">
+        <section className="col-span-12 lg:col-span-6 space-y-5">
           <h2>Recent Tracks</h2>
+          <span className="font-serif text-primary text-sm tracking-normal font-normal">
+            * last played *
+          </span>
           <ul className="space-y-5">
             {recenttracks.track.map((track, index) => {
               const isNowPlaying = track.date === undefined;
-              const isDuplicate = recenttracks.track[index + 1]?.name === track.name;
-              if (isDuplicate) return null;
 
               return (
                 <li key={track.url}>
@@ -103,139 +76,30 @@ export default async function Home() {
                       <YTMusic />
                     </LinkExternal>
                   </h3>
-                  <p className="flex space-x-2 items-baseline">
+                  <p className="space-x-2">
                     <span className="italic font-semibold"> {track.artist["#text"]}</span>
-                    {track.date ? (
-                      <>
-                        <span className="text-xs text-offset self-end">*</span>
-                        <span className="text-xs text-offset">
-                          {formatDate(track.date["#text"] as unknown as Date, "en-US")}
-                        </span>
-                      </>
-                    ) : (
-                      isNowPlaying && (
-                        <div className="relative">
-                          <span className="text-xs text-offset self-end">*</span>
-                          <span className="text-xs text-offset">now playing</span>
 
-                          <div className="absolute top-0 right-0 -mr-2 mt-1 w-2 h-2 rounded-full bg-secondary animate-ping"></div>
-                          <div className="absolute top-0 right-0 -mr-2 mt-1 w-2 h-2 rounded-full bg-secondary"></div>
-                        </div>
-                      )
-                    )}
+                    <span className="text-xs text-offset self-end">{track.date && <>*</>}</span>
+                    <span className="text-xs text-offset relative">
+                      {!isNowPlaying && formatDate(track.date["#text"] as unknown as Date, "en-US")}
+                      {isNowPlaying && "now playing"}
+                      <span
+                        key={"ping"}
+                        className={`${
+                          !isNowPlaying && "hidden"
+                        } absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary animate-ping`}
+                      ></span>
+                      <span
+                        key={"dot"}
+                        className={`${
+                          !isNowPlaying && "hidden"
+                        } absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary`}
+                      ></span>
+                    </span>
                   </p>
                 </li>
               );
             })}
-          </ul>
-        </section>
-        <section className="col-span-12 lg:col-span-6 2xl:col-span-4 space-y-5">
-          <h2>Top Albums</h2>
-          <span className="font-serif text-primary text-sm tracking-normal font-normal">
-            * last three months *
-          </span>
-          <ul className="space-y-5">
-            {topalbums.album.map((album, index) => {
-              return (
-                <li key={`${album.name}-${index}`}>
-                  <h3>
-                    {album.name}
-                    <LinkExternal
-                      href={`https://music.youtube.com/search?q=${album.name}${" "}${
-                        album.artist.name
-                      }`}
-                      className="inline-block ml-2"
-                    >
-                      <YTMusic />
-                    </LinkExternal>
-                  </h3>
-
-                  <p className="flex space-x-2 items-baseline">
-                    <span className="italic font-bold">{album.artist.name}</span>
-                    <span className="text-xs text-offset self-end">*</span>
-                    <span className="text-xs text-offset">{album.playcount} plays</span>
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-        <section className="col-span-12 lg:col-span-6 2xl:col-span-4 space-y-5">
-          <h2>Top Artists </h2>
-          <span className="font-serif text-primary text-sm tracking-normal font-normal">
-            * last three months *
-          </span>
-          <ul className="space-y-5">
-            {topartists.artist.map((artist, index) => (
-              <li key={`${artist.name}-${index}`} className="flex space-x-2 items-baseline">
-                <h3>{artist.name}</h3>
-                <span className="text-xs text-offset self-end">*</span>
-                <p className="text-xs text-offset">{artist.playcount} plays</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="col-span-12 lg:col-span-6 2xl:col-span-4 space-y-5">
-          <h2>Loved Tracks</h2>
-          <span className="font-serif text-primary text-sm tracking-normal font-normal">
-            * last month *
-          </span>
-          <ul className="space-y-5">
-            {lovedtracks.track.map((track) => (
-              <li key={track.url}>
-                <h3>
-                  {track.name}
-                  <LinkExternal
-                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                      track.artist.name
-                    }`}
-                    className="inline-block ml-2"
-                  >
-                    <YTMusic />
-                  </LinkExternal>
-                </h3>
-                <p className="flex space-x-2 items-baseline">
-                  <span className="italic font-semibold">{track.artist.name}</span>
-                  {track.date && (
-                    <>
-                      <span className="text-xs text-offset self-end">*</span>
-                      <span className="text-xs text-offset">
-                        {formatDate(track.date["#text"] as unknown as Date, "en-US")}
-                      </span>
-                    </>
-                  )}
-                </p>{" "}
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="col-span-12 lg:col-span-6 2xl:col-span-4 space-y-5">
-          <h2>Top Tracks</h2>
-          <span className="font-serif text-primary text-sm tracking-normal font-normal">
-            * last month *
-          </span>
-          <ul className="space-y-5">
-            {toptracks.track.map((track) => (
-              <li key={track.url}>
-                <h3>
-                  {track.name}
-                  <LinkExternal
-                    href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                      track.artist.name
-                    }`}
-                    className="inline-block ml-2"
-                  >
-                    <YTMusic />
-                  </LinkExternal>
-                </h3>
-
-                <p className="space-x-2">
-                  <span className="italic font-bold">{track.artist.name}</span>
-                  <span className="text-xs text-offset">*</span>
-                  <span className="text-xs text-offset">{track.playcount} plays</span>{" "}
-                </p>
-              </li>
-            ))}
           </ul>
         </section>
       </div>
