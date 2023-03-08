@@ -53,3 +53,7 @@ h3 {
 a {
   @apply hover:text-secondary hover:underline font-semibold;
 }
+
+.legend {
+  @apply text-xs text-offset;
+}

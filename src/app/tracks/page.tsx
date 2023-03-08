@@ -43,8 +43,8 @@ export default async function Tracks() {
 
               <p className="space-x-2">
                 <span className="italic font-bold">{track.artist.name}</span>
-                <span className="text-xs text-offset">*</span>
-                <span className="text-xs text-offset">{track.playcount} plays</span>
+                <span className="legend">*</span>
+                <span className="legend">{track.playcount} plays</span>
               </p>
             </li>
           ))}
@@ -74,8 +74,8 @@ export default async function Tracks() {
               </h3>
               <p className="space-x-2">
                 <span className="italic font-semibold">{track.artist.name}</span>
-                <span className="text-xs text-offset"> {track.date && <>*</>}</span>
-                <span className="text-xs text-offset">
+                <span className="legend"> {track.date && <>*</>}</span>
+                <span className="legend">
                   {formatDate(track.date["#text"] as unknown as Date, "en-US")}
                 </span>
               </p>

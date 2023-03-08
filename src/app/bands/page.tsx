@@ -24,8 +24,8 @@ export default async function Bands() {
             <li key={`${artist.name}-${index}`} className="col-span-12 md:col-span-6 lg:col-span-2">
               <h3>{artist.name}</h3>
               <span className="space-x-2">
-                <span className="text-xs text-offset">*</span>
-                <span className="text-xs text-offset">{artist.playcount} plays</span>
+                <span className="legend">*</span>
+                <span className="legend">{artist.playcount} plays</span>
               </span>
             </li>
           ))}

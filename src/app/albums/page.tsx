@@ -45,8 +45,8 @@ export default async function Albums() {
 
                 <span className="space-x-2">
                   <span className="italic font-bold">{album.artist.name}</span>
-                  <span className="text-xs text-offset">*</span>
-                  <span className="text-xs text-offset">{album.playcount} plays</span>
+                  <span className="legend">*</span>
+                  <span className="legend">{album.playcount} plays</span>
                 </span>
               </li>
             );

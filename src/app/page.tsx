@@ -20,34 +20,34 @@ export default async function Home() {
           className="col-span-12"
           src={user.image[3]["#text"]}
           alt={user.name}
-          width={100}
-          height={100}
+          width={120}
+          height={120}
           loading="eager"
         />
         <div className="col-span-12">
           <h1>{user.name}</h1>
           <p className="flex space-x-2 items-baseline">
-            <span className="text-xs text-offset self-end">*</span>
-            <span className="text-xs text-offset">
+            <span className="legend self-end">*</span>
+            <span className="legend">
               since {convertDate(user.registered["#text"] as unknown as string)}
             </span>
           </p>
           <div className="flex gap-3 flex-wrap">
             <p className="flex space-x-2 items-baseline">
               <span className="font-semibold italic">{user.artist_count}</span>
-              <span className="text-xs text-offset">artist</span>
+              <span className="legend">artist</span>
             </p>
             <p className="flex space-x-2 items-baseline">
               <span className="font-semibold italic">{user.album_count}</span>
-              <span className="text-xs text-offset">albums</span>
+              <span className="legend">albums</span>
             </p>
             <p className="flex space-x-2 items-baseline">
               <span className="font-semibold italic">{user.track_count}</span>
-              <span className="text-xs text-offset">songs</span>
+              <span className="legend">songs</span>
             </p>
             <p className="flex space-x-2 items-baseline">
               <span className="font-semibold italic">{user.playcount}</span>
-              <span className="text-xs text-offset">plays</span>
+              <span className="legend">plays</span>
             </p>
           </div>
         </div>
@@ -79,8 +79,8 @@ export default async function Home() {
                   <p className="space-x-2">
                     <span className="italic font-semibold"> {track.artist["#text"]}</span>
 
-                    <span className="text-xs text-offset self-end">{track.date && <>*</>}</span>
-                    <span className="text-xs text-offset relative">
+                    <span className="legend self-end">{track.date && <>*</>}</span>
+                    <span className="legend relative">
                       {!isNowPlaying && formatDate(track.date["#text"] as unknown as Date, "en-US")}
                       {isNowPlaying && "now playing"}
                       <span
