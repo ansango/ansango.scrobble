@@ -9,10 +9,13 @@ const {
   userApiMethods: { getInfo, getRecentTracks },
 } = lastFmClient();
 
-export const revalidate = 20;
+export const revalidate = 10;
 
 export default async function Home() {
-  const { recenttracks } = await getRecentTracks({ user: "ansango", limit: "5" });
+  const { recenttracks } = await getRecentTracks(
+    { user: "ansango", limit: "5" },
+    { cache: "no-cache", next: { revalidate: 10 } }
+  );
   const { user } = await getInfo({ user: "ansango" });
 
   return (
