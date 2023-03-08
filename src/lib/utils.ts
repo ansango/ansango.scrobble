@@ -9,3 +9,8 @@ export const formatDate = (date: Date, locale = "es-ES", options?: Intl.DateTime
 
   return now;
 };
+
+export const convertDate = (timestamp: string) => {
+  const date = new Date(parseInt(timestamp) * 1000);
+  return formatDate(date, "en-US");
+};
