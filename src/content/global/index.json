@@ -2,16 +2,16 @@
   "header": {
     "nav": [
       {
+        "href": "bands",
+        "label": "bands"
+      },
+      {
         "href": "albums",
         "label": "albums"
       },
       {
         "href": "tracks",
         "label": "tracks"
-      },
-      {
-        "href": "bands",
-        "label": "bands"
       }
     ]
   },
@@ -19,7 +19,11 @@
     "links": [
       {
         "href": "",
-        "label": "inicio"
+        "label": "home"
+      },
+      {
+        "href": "bands",
+        "label": "bands"
       },
       {
         "href": "albums",
@@ -32,16 +36,20 @@
     ],
     "social": [
       {
+        "label": "anibalsantosgomez",
+        "href": "https://anibalsantosgomez.com"
+      },
+      {
         "href": "https://www.instagram.com/iamasync/",
         "label": "instagram"
       },
       {
-        "href": "https://github.com/ansango/",
-        "label": "github"
+        "href": "https://www.last.fm/user/ansango",
+        "label": "lastfm"
       },
       {
-        "href": "bands",
-        "label": "bands"
+        "href": "https://github.com/ansango/",
+        "label": "github"
       }
     ]
   }

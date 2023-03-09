@@ -1,7 +1,7 @@
 import type { Period } from "lastfm-client-ts";
 import { lastFmClient } from "lastfm-client-ts";
 
-import { Container } from "@/components";
+import { Container, Heading, Legend, Subtitle, SubtitleLegend } from "@/components";
 import { convertPeriod } from "@/lib";
 
 const {
@@ -15,18 +15,16 @@ export default async function Bands() {
   return (
     <Container className="grid grid-cols-12">
       <section className="col-span-12 space-y-5">
-        <h2>Top Artists </h2>
-        <span className="font-serif text-primary text-sm tracking-normal font-normal">
-          * {convertPeriod(period)} *
-        </span>
+        <Subtitle>top artists </Subtitle>
+        <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
         <ul className="grid grid-cols-12 gap-5 lg:gap-20">
           {topartists.artist.map((artist, index) => (
             <li key={`${artist.name}-${index}`} className="col-span-12 md:col-span-6 lg:col-span-2">
-              <h3>{artist.name}</h3>
-              <span className="space-x-2">
-                <span className="legend">*</span>
-                <span className="legend">{artist.playcount} plays</span>
-              </span>
+              <Heading>{artist.name}</Heading>
+              <p className="space-x-2">
+                <Legend>*</Legend>
+                <Legend>{artist.playcount} plays</Legend>
+              </p>
             </li>
           ))}
         </ul>

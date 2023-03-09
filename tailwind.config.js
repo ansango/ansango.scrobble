@@ -8,6 +8,7 @@ module.exports = {
       fontFamily: {
         sans: ["var(--sans)", ...fontFamily.sans],
         serif: ["var(--serif)", ...fontFamily.serif],
+        display: ["var(--display)", ...fontFamily.sans],
       },
       colors: {
         primary: "var(--color-primary)",
@@ -27,6 +28,7 @@ module.exports = {
     },
   },
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     require("tailwindcss-fluid-type")({
       settings: {
         fontSizeMin: 1.125, // 1.125rem === 18px

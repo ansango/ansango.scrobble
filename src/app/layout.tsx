@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
-import { IBM_Plex_Sans, Gloock } from "next/font/google";
+import { IBM_Plex_Sans, Gloock, Germania_One } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import { Header, Footer, Theme } from "@/components";
+import { Header, Footer, Theme, Main } from "@/components";
 
 import GlobalData from "../content/global/index.json";
 
@@ -25,15 +25,21 @@ const sans = IBM_Plex_Sans({
   variable: "--sans",
 });
 
+const display = Germania_One({
+  weight: ["400"],
+  subsets: ["latin"],
+  variable: "--display",
+});
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { footer, header } = GlobalData;
-  const cnBody = `min-h-screen flex flex-col ${serif.variable} ${sans.variable}`;
+  const cnBody = `min-h-screen flex flex-col ${serif.variable} ${sans.variable} ${display.variable}`;
   return (
     <html lang="en" data-theme="light">
       <body className={cnBody}>
         <Theme>
           <Header {...header} />
-          <main className="flex-1 flex flex-col">{children}</main>
+          <Main>{children}</Main>
           <Footer {...footer} />
         </Theme>
       </body>

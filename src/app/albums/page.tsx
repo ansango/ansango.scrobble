@@ -1,8 +1,15 @@
 import type { Limit, Period, UserName } from "lastfm-client-ts";
 import { lastFmClient } from "lastfm-client-ts";
 
-import { Container, LinkExternal } from "@/components";
-import { YTMusic } from "@/components/icons";
+import {
+  Container,
+  Heading,
+  Legend,
+  LegendItalicBold,
+  LinkYouTube,
+  Subtitle,
+  SubtitleLegend,
+} from "@/components";
 import { convertPeriod } from "@/lib";
 
 const {
@@ -20,10 +27,8 @@ export default async function Albums() {
   return (
     <Container className="grid grid-cols-12">
       <section className="col-span-12 space-y-5">
-        <h2>Top Albums</h2>
-        <span className="font-serif text-primary text-sm tracking-normal font-normal">
-          * {convertPeriod(period)} *
-        </span>
+        <Subtitle>Top Albums</Subtitle>
+        <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
         <ul className="grid grid-cols-12 gap-5 lg:gap-20">
           {topalbums.album.map((album, index) => {
             return (
@@ -31,23 +36,16 @@ export default async function Albums() {
                 key={`${album.name}-${index}`}
                 className="col-span-12 md:col-span-6 lg:col-span-4"
               >
-                <h3>
+                <Heading>
                   {album.name}
-                  <LinkExternal
-                    href={`https://music.youtube.com/search?q=${album.name}${" "}${
-                      album.artist.name
-                    }`}
-                    className="inline-block ml-2"
-                  >
-                    <YTMusic />
-                  </LinkExternal>
-                </h3>
+                  <LinkYouTube query={`${album.name}${" "}${album.artist.name}`} />
+                </Heading>
 
-                <span className="space-x-2">
-                  <span className="italic font-bold">{album.artist.name}</span>
-                  <span className="legend">*</span>
-                  <span className="legend">{album.playcount} plays</span>
-                </span>
+                <p className="space-x-2">
+                  <LegendItalicBold>{album.artist.name}</LegendItalicBold>
+                  <Legend>*</Legend>
+                  <Legend>{album.playcount} plays</Legend>
+                </p>
               </li>
             );
           })}

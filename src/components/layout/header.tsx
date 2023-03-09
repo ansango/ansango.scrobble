@@ -37,16 +37,18 @@ export const Header: FC<Props> = ({ nav }) => {
   return (
     <header>
       <Container className="pt-6 sm:py-12">
-        <nav className="flex space-x-2 justify-end">
-          {nav.map((item, i) => {
-            return (
-              <Link href={`/${item.href}`} key={`${item.label}-${i}`}>
-                {item.label}
-              </Link>
-            );
-          })}
-          <ThemeChanger />
-        </nav>
+        <div className="max-w-3xl mx-auto">
+          <nav className="flex space-x-5 justify-end">
+            {nav.map((item, i) => {
+              return (
+                <Link href={`/${item.href}`} key={`${item.label}-${i}`}>
+                  {item.label}
+                </Link>
+              );
+            })}
+            <ThemeChanger />
+          </nav>
+        </div>
       </Container>
     </header>
   );

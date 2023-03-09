@@ -1,9 +1,18 @@
 import { lastFmClient } from "lastfm-client-ts";
-import Image from "next/image";
 
-import { Container, LinkExternal } from "@/components";
-import { YTMusic } from "@/components/icons";
-import { convertDate, formatDate } from "@/lib";
+import {
+  Title,
+  Subtitle,
+  SubtitleLegend,
+  Legend,
+  LegendItalicBold,
+  Heading,
+  LinkYouTube,
+  ActiveBullet,
+  LinkExternal,
+  Section,
+} from "@/components";
+import { formatDate } from "@/lib";
 
 const {
   userApiMethods: { getInfo, getRecentTracks },
@@ -19,77 +28,74 @@ export default async function Home() {
   const { user } = await getInfo({ user: "ansango" });
 
   return (
-    <Container className="grid gap-20">
-      <section className="grid gap-5 grid-cols-12">
-        <Image
-          className="col-span-12"
-          src={user.image[3]["#text"]}
-          alt={user.name}
-          width={120}
-          height={120}
-          loading="eager"
-        />
-        <div className="col-span-12">
-          <h1>{user.name}</h1>
-          <p className="flex space-x-2 items-baseline">
-            <span className="legend self-end">*</span>
-            <span className="legend">
-              since {convertDate(user.registered["#text"] as unknown as string)}
-            </span>
-          </p>
-          <div className="flex gap-3 flex-wrap">
-            <p className="flex space-x-2 items-baseline">
-              <span className="font-semibold italic">{user.artist_count}</span>
-              <span className="legend">artist</span>
+    <>
+      <Section className="text-center">
+        <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mx-auto mb-5 rounded-full">
+          <span className="w-10 h-10">🎵</span>
+        </div>
+        <Title>
+          The Playlist <br className="hidden lg:block" />
+          All-Time Favorite Tunes
+        </Title>
+
+        <p className="max-w-xl mx-auto mt-8 text-center text-offset">
+          Explore my collection and embark on a sonic journey, experiencing a curated selection of
+          amazing tracks.
+        </p>
+      </Section>
+      <Section>
+        <div className="flex flex-col w-full max-w-3xl mx-auto text-left">
+          <div className="w-full mx-auto space-y-5">
+            <h2>What tha hell is this?</h2>
+            <h3>
+              <LinkExternal href={user.url} className="cursor-pointer font-medium">
+                {user.realname}
+              </LinkExternal>
+            </h3>
+            <p className="text-offset">
+              This is a selection of my favorite songs, carefully curated over the years. Since
+              2007, I have been recording my listening habits on Last.fm, although unfortunately I
+              lost my previous account and had to start over.
             </p>
-            <p className="flex space-x-2 items-baseline">
-              <span className="font-semibold italic">{user.album_count}</span>
-              <span className="legend">albums</span>
-            </p>
-            <p className="flex space-x-2 items-baseline">
-              <span className="font-semibold italic">{user.track_count}</span>
-              <span className="legend">songs</span>
-            </p>
-            <p className="flex space-x-2 items-baseline">
-              <span className="font-semibold italic">{user.playcount}</span>
-              <span className="legend">plays</span>
+            <p className="text-offset">
+              Now I'm on my second account and have been recording my music since 2018. To date, I
+              have listened to a total of <span className="font-bold">{user.playcount} songs</span>,
+              and my library contains <span className="font-bold">{user.track_count} tracks</span>,{" "}
+              <span className="font-bold">{user.album_count} albums</span>, and{" "}
+              <span className="font-bold">{user.artist_count} artists</span>.
             </p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      <div className="grid gap-y-20 grid-cols-12 sm:gap-x-5 lg:gap-20">
-        <section className="col-span-12 lg:col-span-6 space-y-5">
-          <h2>Recent Tracks</h2>
-          <span className="font-serif text-primary text-sm tracking-normal font-normal">
-            * last played *
-          </span>
+      <Section>
+        <div className="flex flex-col w-full max-w-3xl mx-auto text-left space-y-5">
+          <Subtitle>Recent Tracks</Subtitle>
+          <SubtitleLegend>* last played *</SubtitleLegend>
           <ul className="space-y-5">
             {recenttracks.track.filter((track) => track.date === undefined).length > 0 && (
-              <li className="flex flex-col space-y-2">
-                <h3>
+              <li>
+                <Heading>
                   {recenttracks.track
                     .filter((track) => track.date === undefined)
-                    .map((track) => track.name)}
-                </h3>
+                    .map((track) => (
+                      <>
+                        {track.name}
+                        <LinkYouTube query={`${track.name} ${" "}${track.artist["#text"]}`} />
+                      </>
+                    ))}
+                </Heading>
                 <p className="space-x-2">
-                  <span className="italic font-semibold">
+                  <LegendItalicBold>
                     {recenttracks.track
                       .filter((track) => track.date === undefined)
                       .map((track) => track.artist["#text"])}
-                  </span>
-                  <span className="legend self-end">*</span>
-                  <span className="legend relative">
+                  </LegendItalicBold>
+                  <Legend>*</Legend>
+                  <Legend className="relative">
                     now
-                    <span
-                      key={"ping"}
-                      className="absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary animate-ping"
-                    ></span>
-                    <span
-                      key={"dot"}
-                      className="absolute top-0 right-0 -mr-3 mt-0.5 w-2 h-2 rounded-full bg-secondary"
-                    ></span>
-                  </span>
+                    <ActiveBullet />
+                  </Legend>
                 </p>
               </li>
             )}
@@ -98,31 +104,21 @@ export default async function Home() {
               .map((track, index) => {
                 return (
                   <li key={`${track.url}-${index}`}>
-                    <h3>
+                    <Heading>
                       {track.name}
-                      <LinkExternal
-                        href={`https://music.youtube.com/search?q=${track.name}${" "}${
-                          track.artist["#text"]
-                        }`}
-                        className="inline-block ml-2"
-                      >
-                        <YTMusic />
-                      </LinkExternal>
-                    </h3>
+                      <LinkYouTube query={`${track.name} ${" "}${track.artist["#text"]}`} />
+                    </Heading>
                     <p className="space-x-2">
-                      <span className="italic font-semibold"> {track.artist["#text"]}</span>
-
-                      <span className="legend self-end">{track.date && <>*</>}</span>
-                      <span className="legend relative">
-                        {formatDate(track.date["#text"] as unknown as Date, "en-US")}
-                      </span>
+                      <LegendItalicBold> {track.artist["#text"]}</LegendItalicBold>
+                      <Legend>{track.date && <>*</>}</Legend>
+                      <Legend>{formatDate(track.date["#text"] as unknown as Date, "en-US")}</Legend>
                     </p>
                   </li>
                 );
               })}
           </ul>
-        </section>
-      </div>
-    </Container>
+        </div>
+      </Section>
+    </>
   );
 }

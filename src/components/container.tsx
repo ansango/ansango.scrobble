@@ -5,6 +5,17 @@ type Props = {
   className?: string;
 };
 
+export const Main: FC<Props> = ({ children, className = "", ...props }) => {
+  return (
+    <main
+      className={`w-full max-w-7xl xl:max-w-[100rem] 2xl:max-w-[120rem] p-4 sm:p-6 md:p-12 mx-auto ${className}`}
+      {...props}
+    >
+      {children}
+    </main>
+  );
+};
+
 export const Container: FC<Props> = ({ children, className = "", ...props }) => {
   return (
     <div

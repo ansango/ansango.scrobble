@@ -8,9 +8,9 @@ type Props = {
 export const Section: FC<Props> = ({ children, className = "" }) => {
   return (
     <section
-      className={`flex-1 relative transition duration-150 ease-out overflow-hidden ${className}`}
+      className={`px-4 py-12 mx-auto max-w-7xl sm:px-6 md:px-12 lg:px-24 lg:py-24 ${className}`}
     >
-      {children}
+      <div className="flex flex-col w-full">{children}</div>
     </section>
   );
 };

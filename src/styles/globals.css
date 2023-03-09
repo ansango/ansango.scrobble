@@ -32,22 +32,16 @@ body,
   scroll-behavior: smooth;
 }
 
-h1,
-h2,
-h3 {
-  @apply font-serif text-primary;
-}
-
 h1 {
-  @apply text-4xl font-bold tracking-[1rem] md:text-6xl;
+  @apply lowercase font-display text-primary text-4xl font-bold tracking-widest md:text-6xl;
 }
 
 h2 {
-  @apply text-3xl font-bold tracking-widest md:text-5xl;
+  @apply lowercase font-display text-primary text-3xl font-bold tracking-widest md:text-5xl;
 }
 
 h3 {
-  @apply text-xl md:text-2xl;
+  @apply font-serif text-primary text-xl md:text-2xl;
 }
 
 a {
