@@ -4,21 +4,33 @@
 
 [data-theme="light"] {
   --color-primary: theme("colors.pink.500");
+  --color-primary-light: theme("colors.pink.400/10%");
+  --color-primary-dark: theme("colors.pink.600/10%");
   --color-secondary: theme("colors.indigo.500");
+  --color-secondary-light: theme("colors.indigo.400/10%");
+  --color-secondary-dark: theme("colors.indigo.600/10%");
   --color-text: theme("colors.gray.900");
   --color-text-offset: theme("colors.gray.600");
-  --color-background: theme("colors.gray.50");
-  --color-background-offset: theme("colors.gray.100");
+  --color-background: theme("colors.pink.400" / 4%);
+  --color-background-offset: theme("colors.pink.400" / 10%);
+  --color-gradient: theme("colors.gray.50");
+  --color-gradient-offset: theme("colors.gray.100");
   --color-border: theme("colors.gray.900" / 10%);
 }
 
 [data-theme="dark"] {
   --color-primary: theme("colors.pink.400");
+  --color-primary-light: theme("colors.pink.300/10%");
+  --color-primary-dark: theme("colors.pink.800/10%");
   --color-secondary: theme("colors.indigo.400");
+  --color-secondary-light: theme("colors.indigo.300/10%");
+  --color-secondary-dark: theme("colors.indigo.800/10%");
   --color-text: theme("colors.gray.50");
   --color-text-offset: theme("colors.gray.400");
   --color-background: theme("colors.gray.900");
   --color-background-offset: theme("colors.gray.800");
+  --color-gradient: theme("colors.gray.900");
+  --color-gradient-offset: theme("colors.gray.800");
   --color-border: theme("colors.gray.50" / 10%);
 }
 
@@ -45,7 +57,7 @@ h3 {
 }
 
 a {
-  @apply hover:text-secondary hover:underline font-semibold;
+  @apply font-semibold  underline-offset-4 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-secondary hover:via-primary hover:to-pink-300;
 }
 
 .legend {

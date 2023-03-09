@@ -19,8 +19,9 @@ export const Subtitle: FC<{
 
 export const Heading: FC<{
   children: ReactNode;
-}> = ({ children }) => {
-  return <h3>{children}</h3>;
+  className?: string;
+}> = ({ children, className }) => {
+  return <h3 className={className}>{children}</h3>;
 };
 
 export const SubtitleLegend: FC<{

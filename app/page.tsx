@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <Container>
-      <Section className="text-center h-[calc(100vh-10rem)]">
+      <Section className="text-center lg:py-0 xl:py-24">
         <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mx-auto mb-5 rounded-full">
           <div className="border-2 lg:border-[3px] border-secondary p-4 lg:p-6 rounded-full flex justify-center items-center motion-safe:animate-pulse motion-safe:duration-[4000ms]">
             <svg
@@ -42,8 +42,11 @@ export default async function Home() {
           </div>
         </div>
         <Title>
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary">
-            The Playlist <br />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-900/90 via-secondary to-secondary">
+            The Playlist
+          </span>
+          <br />
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary via-primary to-pink-300/90">
             All-Time Favorite Tunes
           </span>
         </Title>

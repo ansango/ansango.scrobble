@@ -13,6 +13,10 @@ module.exports = {
       colors: {
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",
+        "primary-light": "var(--color-primary-light)",
+        "secondary-light": "var(--color-secondary-light)",
+        "primary-dark": "var(--color-primary-dark)",
+        "secondary-dark": "var(--color-secondary-dark)",
       },
       textColor: {
         default: "var(--color-text)",
@@ -24,6 +28,14 @@ module.exports = {
       },
       borderColor: {
         default: "var(--color-border)",
+      },
+      gradientColorStops: {
+        default: "var(--color-gradient)",
+        offset: "var(--color-gradient-offset)",
+        "primary-light": "var(--color-primary-light)",
+        "secondary-light": "var(--color-secondary-light)",
+        "primary-dark": "var(--color-primary-dark)",
+        "secondary-dark": "var(--color-secondary-dark)",
       },
     },
   },
