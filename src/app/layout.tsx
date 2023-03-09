@@ -4,7 +4,7 @@ import { IBM_Plex_Sans, Gloock, Germania_One } from "next/font/google";
 
 import "@/styles/globals.css";
 
-import { Header, Footer, Theme, Main } from "@/components";
+import { Header, Footer, Theme } from "@/components";
 
 import GlobalData from "../content/global/index.json";
 
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={cnBody}>
         <Theme>
           <Header {...header} />
-          <Main>{children}</Main>
+          <main>{children}</main>
           <Footer {...footer} />
         </Theme>
       </body>

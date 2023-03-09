@@ -38,15 +38,33 @@ export const Header: FC<Props> = ({ nav }) => {
     <header>
       <Container className="pt-6 sm:py-12">
         <div className="max-w-screen-lg mx-auto">
-          <nav className="flex space-x-5 justify-end">
+          <div className="flex justify-between items-center">
+            <Link href="/" className="font-display font-normal text-2xl text-secondary">
+              next scrobble
+            </Link>
+            <nav className="space-x-5">
+              {nav.map((item, i) => {
+                return (
+                  <Link
+                    href={`/${item.href}`}
+                    key={`${item.label}-${i}`}
+                    className="hidden md:inline-flex"
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+              <ThemeChanger />
+            </nav>
+          </div>
+          <nav className="md:hidden">
             {nav.map((item, i) => {
               return (
-                <Link href={`/${item.href}`} key={`${item.label}-${i}`}>
+                <Link href={`/${item.href}`} key={`${item.label}-${i}`} className="block">
                   {item.label}
                 </Link>
               );
             })}
-            <ThemeChanger />
           </nav>
         </div>
       </Container>

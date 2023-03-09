@@ -36,8 +36,10 @@ export default async function Home() {
             <span className="w-10 h-10">🎵</span>
           </div>
           <Title>
-            The Playlist <br className="hidden lg:block" />
-            All-Time Favorite Tunes
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary to-primary">
+              The Playlist <br className="hidden lg:block" />
+              All-Time Favorite Tunes
+            </span>
           </Title>
 
           <p className="max-w-xl mx-auto mt-8 text-center text-offset">
@@ -46,15 +48,16 @@ export default async function Home() {
           </p>
         </div>
       </Section>
+
       <Section>
         <div className="flex flex-col max-w-screen-lg mx-auto text-left">
           <div className="w-full mx-auto space-y-5">
-            <h2>What tha hell is this?</h2>
-            <h3>
+            <Subtitle>What tha hell is this?</Subtitle>
+            <Heading>
               <LinkExternal href={user.url} className="cursor-pointer font-medium">
                 {user.realname}
               </LinkExternal>
-            </h3>
+            </Heading>
             <p className="text-offset">
               This is a selection of my favorite songs, carefully curated over the years. Since
               2007, I have been recording my listening habits on Last.fm, although unfortunately I
