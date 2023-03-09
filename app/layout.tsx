@@ -5,8 +5,7 @@ import { IBM_Plex_Sans, Gloock, Germania_One } from "next/font/google";
 import "@/styles/globals.css";
 
 import { Header, Footer, Theme } from "@/components";
-
-import GlobalData from "../content/global/index.json";
+import { GlobalData } from "@/content";
 
 export const metadata = {
   title: "Create Next App",
