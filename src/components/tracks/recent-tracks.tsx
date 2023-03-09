@@ -1,6 +1,6 @@
 "use client";
 
-import type { RecentTracks } from "lastfm-client-ts";
+import type { RecentTracks as TracksType } from "lastfm-client-ts";
 import useSWR from "swr";
 
 import { fetcher, formatDate } from "@/lib";
@@ -16,8 +16,8 @@ import {
 } from "../base";
 import { Section } from "../section";
 
-export const Recenttracks = () => {
-  const { data: recenttracks } = useSWR<RecentTracks>("/api/hello", fetcher);
+export const RecentTracks = () => {
+  const { data: recenttracks } = useSWR<TracksType>("/api/hello", fetcher);
 
   return (
     <Section>

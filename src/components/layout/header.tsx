@@ -38,7 +38,7 @@ export const Header: FC<Props> = ({ nav }) => {
   return (
     <header>
       <Container className="pt-6 sm:py-12">
-        <Section>
+        <Section className="py-6 lg:py-12 ">
           <div className="max-w-screen-lg mx-auto">
             <div className="flex justify-between items-center">
               <Link href="/" className="font-display font-normal text-2xl text-secondary">

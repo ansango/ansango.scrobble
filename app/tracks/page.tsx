@@ -9,6 +9,7 @@ import {
   LegendItalicBold,
   LinkYouTube,
   Section,
+  Container,
 } from "@/components";
 import { convertPeriod, formatDate } from "@/lib";
 
@@ -24,7 +25,7 @@ export default async function Tracks() {
   const { toptracks } = await getTopTracks({ user, period, limit });
   const { lovedtracks } = await getLovedTracks({ user, limit });
   return (
-    <>
+    <Container>
       <Section>
         <div className="space-y-5 max-w-screen-lg mx-auto">
           <Subtitle>Top Tracks</Subtitle>
@@ -74,6 +75,6 @@ export default async function Tracks() {
           </ul>
         </div>
       </Section>
-    </>
+    </Container>
   );
 }
