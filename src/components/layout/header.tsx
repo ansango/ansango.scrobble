@@ -37,7 +37,7 @@ export const Header: FC<Props> = ({ nav }) => {
   return (
     <header>
       <Container className="pt-6 sm:py-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-screen-lg mx-auto">
           <nav className="flex space-x-5 justify-end">
             {nav.map((item, i) => {
               return (

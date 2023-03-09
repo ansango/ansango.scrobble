@@ -11,9 +11,10 @@ export const Title: FC<{
 };
 
 export const Subtitle: FC<{
+  className?: string;
   children: ReactNode;
-}> = ({ children }) => {
-  return <h2>{children}</h2>;
+}> = ({ children, className = "" }) => {
+  return <h2 className={className}>{children}</h2>;
 };
 
 export const Heading: FC<{

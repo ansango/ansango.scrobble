@@ -20,7 +20,7 @@ export const Footer: FC<Props> = ({ links, social }) => {
     <footer>
       <Container>
         <Section>
-          <div className="grid md:grid-cols-12 w-full max-w-3xl mx-auto gap-5">
+          <div className="grid md:grid-cols-12 w-full max-w-screen-lg mx-auto gap-5">
             <ul className="col-span-12 md:col-span-3">
               {links.map((item, i) => (
                 <li key={`${item.label}-${i}`}>

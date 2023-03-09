@@ -25,26 +25,29 @@ export default async function Home() {
     { user: "ansango", limit: "5" },
     { cache: "no-cache", next: { revalidate: 10 } }
   );
+
   const { user } = await getInfo({ user: "ansango" });
 
   return (
     <>
       <Section className="text-center">
-        <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mx-auto mb-5 rounded-full">
-          <span className="w-10 h-10">🎵</span>
-        </div>
-        <Title>
-          The Playlist <br className="hidden lg:block" />
-          All-Time Favorite Tunes
-        </Title>
+        <div className="pb-10 lg:pb-20">
+          <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mx-auto mb-5 rounded-full">
+            <span className="w-10 h-10">🎵</span>
+          </div>
+          <Title>
+            The Playlist <br className="hidden lg:block" />
+            All-Time Favorite Tunes
+          </Title>
 
-        <p className="max-w-xl mx-auto mt-8 text-center text-offset">
-          Explore my collection and embark on a sonic journey, experiencing a curated selection of
-          amazing tracks.
-        </p>
+          <p className="max-w-xl mx-auto mt-8 text-center text-offset">
+            Explore my collection and embark on a sonic journey, experiencing a curated selection of
+            amazing tracks.
+          </p>
+        </div>
       </Section>
       <Section>
-        <div className="flex flex-col w-full max-w-3xl mx-auto text-left">
+        <div className="flex flex-col max-w-screen-lg mx-auto text-left">
           <div className="w-full mx-auto space-y-5">
             <h2>What tha hell is this?</h2>
             <h3>
@@ -58,9 +61,10 @@ export default async function Home() {
               lost my previous account and had to start over.
             </p>
             <p className="text-offset">
-              Now I'm on my second account and have been recording my music since 2018. To date, I
-              have listened to a total of <span className="font-bold">{user.playcount} songs</span>,
-              and my library contains <span className="font-bold">{user.track_count} tracks</span>,{" "}
+              Now I&apos;m on my second account and have been recording my music since 2018. To
+              date, I&apos;ve listened to a total of{" "}
+              <span className="font-bold">{user.playcount} songs</span>, and my library contains{" "}
+              <span className="font-bold">{user.track_count} tracks</span>,{" "}
               <span className="font-bold">{user.album_count} albums</span>, and{" "}
               <span className="font-bold">{user.artist_count} artists</span>.
             </p>
@@ -69,7 +73,7 @@ export default async function Home() {
       </Section>
 
       <Section>
-        <div className="flex flex-col w-full max-w-3xl mx-auto text-left space-y-5">
+        <div className="space-y-5 max-w-screen-lg mx-auto">
           <Subtitle>Recent Tracks</Subtitle>
           <SubtitleLegend>* last played *</SubtitleLegend>
           <ul className="space-y-5">

@@ -2,11 +2,11 @@ import type { Limit, Period, UserName } from "lastfm-client-ts";
 import { lastFmClient } from "lastfm-client-ts";
 
 import {
-  Container,
   Heading,
   Legend,
   LegendItalicBold,
   LinkYouTube,
+  Section,
   Subtitle,
   SubtitleLegend,
 } from "@/components";
@@ -25,16 +25,16 @@ const topAlbums = async () => await getTopAlbums({ user, period, limit });
 export default async function Albums() {
   const { topalbums } = await topAlbums();
   return (
-    <Container className="grid grid-cols-12">
-      <section className="col-span-12 space-y-5">
+    <Section>
+      <div className="space-y-5 max-w-screen-lg mx-auto">
         <Subtitle>Top Albums</Subtitle>
         <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
-        <ul className="grid grid-cols-12 gap-5 lg:gap-20">
+        <ul className="grid grid-cols-12 gap-5 lg:gap-10">
           {topalbums.album.map((album, index) => {
             return (
               <li
                 key={`${album.name}-${index}`}
-                className="col-span-12 md:col-span-6 lg:col-span-4"
+                className="col-span-12 md:col-span-6 xl:col-span-4"
               >
                 <Heading>
                   {album.name}
@@ -50,7 +50,7 @@ export default async function Albums() {
             );
           })}
         </ul>
-      </section>
-    </Container>
+      </div>
+    </Section>
   );
 }

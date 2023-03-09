@@ -26,7 +26,7 @@ export default async function Tracks() {
   return (
     <>
       <Section>
-        <div className="flex flex-col w-full max-w-3xl mx-auto text-left space-y-5">
+        <div className="space-y-5 max-w-screen-lg mx-auto">
           <Subtitle>Top Tracks</Subtitle>
           <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
           <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
@@ -51,7 +51,7 @@ export default async function Tracks() {
         </div>
       </Section>
       <Section>
-        <div className="flex flex-col w-full max-w-3xl mx-auto text-left space-y-5">
+        <div className="space-y-5 max-w-screen-lg mx-auto">
           <Subtitle>Loved Tracks</Subtitle>
           <SubtitleLegend>* last added *</SubtitleLegend>
           <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
