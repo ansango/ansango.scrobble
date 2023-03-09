@@ -6,6 +6,7 @@ import { useTheme } from "next-themes";
 import { useMounted } from "@/hooks";
 
 import { Container } from "../container";
+import { Section } from "../section";
 
 type LinkJSON = {
   label: string;
@@ -37,36 +38,38 @@ export const Header: FC<Props> = ({ nav }) => {
   return (
     <header>
       <Container className="pt-6 sm:py-12">
-        <div className="max-w-screen-lg mx-auto">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="font-display font-normal text-2xl text-secondary">
-              next scrobble
-            </Link>
-            <nav className="space-x-5">
+        <Section>
+          <div className="max-w-screen-lg mx-auto">
+            <div className="flex justify-between items-center">
+              <Link href="/" className="font-display font-normal text-2xl text-secondary">
+                next scrobble
+              </Link>
+              <nav className="space-x-5">
+                {nav.map((item, i) => {
+                  return (
+                    <Link
+                      href={`/${item.href}`}
+                      key={`${item.label}-${i}`}
+                      className="hidden md:inline-flex"
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+                <ThemeChanger />
+              </nav>
+            </div>
+            <nav className="md:hidden">
               {nav.map((item, i) => {
                 return (
-                  <Link
-                    href={`/${item.href}`}
-                    key={`${item.label}-${i}`}
-                    className="hidden md:inline-flex"
-                  >
+                  <Link href={`/${item.href}`} key={`${item.label}-${i}`} className="block">
                     {item.label}
                   </Link>
                 );
               })}
-              <ThemeChanger />
             </nav>
           </div>
-          <nav className="md:hidden">
-            {nav.map((item, i) => {
-              return (
-                <Link href={`/${item.href}`} key={`${item.label}-${i}`} className="block">
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-        </div>
+        </Section>
       </Container>
     </header>
   );
