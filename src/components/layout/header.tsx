@@ -72,15 +72,12 @@ const ThemeChanger = () => {
 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 36 36"></svg>;
 export const Header: FC<Props> = ({ nav }) => {
   return (
-    <header>
-      <Container className="pt-6 sm:py-0 bg-gradient-to-b from-soft to-soft">
+    <header className="bg-gradient-to-b from-soft to-soft">
+      <Container className="pt-6 sm:py-0">
         <Section className="py-6 lg:!py-0 ">
           <div className="max-w-screen-lg mx-auto">
             <div className="flex justify-between items-center">
-              <Link
-                href="/"
-                className="font-display font-normal text-2xl text-secondary hover:underline underline-offset-4"
-              >
+              <Link href="/" className="font-display font-normal text-2xl text-secondary highlight">
                 next scrobble
               </Link>
               <nav className="flex items-center space-x-5">
@@ -88,7 +85,9 @@ export const Header: FC<Props> = ({ nav }) => {
                   {nav.map((item, i) => {
                     return (
                       <li key={`${item.label}-${i}`}>
-                        <Link href={`/${item.href}`}>{item.label}</Link>
+                        <Link className="highlight" href={`/${item.href}`}>
+                          {item.label}
+                        </Link>
                       </li>
                     );
                   })}
@@ -96,10 +95,10 @@ export const Header: FC<Props> = ({ nav }) => {
                 <ThemeChanger />
               </nav>
             </div>
-            <nav className="md:hidden space-y-0.5">
+            <nav className="flex flex-col md:hidden space-y-0.5">
               {nav.map((item, i) => {
                 return (
-                  <Link href={`/${item.href}`} key={`${item.label}-${i}`} className="block">
+                  <Link href={`/${item.href}`} key={`${item.label}-${i}`} className="highlight">
                     {item.label}
                   </Link>
                 );

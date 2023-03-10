@@ -24,14 +24,21 @@ export const Footer: FC<Props> = ({ links, social }) => {
             <ul className="col-span-12 md:col-span-3">
               {links.map((item, i) => (
                 <li key={`${item.label}-${i}`}>
-                  <Link href={`/${item.href}`}>{item.label}</Link>
+                  <Link className="highlight" href={`/${item.href}`}>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
             <ul className="col-span-12 md:col-span-3">
               {social.map((item, i) => (
                 <li key={`${item.label}-${i}-external`}>
-                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="highlight"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {item.label}
                   </a>
                 </li>

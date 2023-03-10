@@ -91,7 +91,11 @@ h3 {
 }
 
 a {
-  @apply font-semibold underline-offset-4 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-secondary hover:via-primary hover:to-pink-300;
+  @apply font-semibold;
+}
+
+a.highlight {
+  @apply hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-secondary hover:via-primary hover:to-pink-300;
 }
 
 .legend {

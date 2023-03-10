@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <>
-      <div className="bg-soft">
+      <div className="bg-gradient-to-b from-soft to-soft">
         <Container>
           <Section className="text-center lg:py-0 xl:py-24">
             <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mx-auto mb-5 rounded-full">
@@ -60,7 +60,7 @@ export default async function Home() {
           </Section>
         </Container>
       </div>
-      <div className="bg-soft">
+      <div className="bg-gradient-to-b from-soft to-soft">
         <Container>
           <Section>
             <div className="flex flex-col max-w-screen-lg mx-auto text-left">
@@ -101,7 +101,7 @@ export default async function Home() {
           </Section>
         </Container>
       </div>
-      <div className="bg-soft-offset">
+      <div className="bg-gradient-to-b from-soft-offset to-soft">
         <Container>
           <RecentTracks />
         </Container>
