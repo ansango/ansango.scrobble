@@ -36,14 +36,13 @@ export default async function Tracks() {
   const favTracks = await getFavTracks({ limit: "3" });
   return (
     <>
-      <section className="h-[calc(100vh-10rem)] bg-gradient-to-b from-primary-light via-primary-light to-primary flex flex-col justify-center">
+      <section className="bg-gradient-to-b from-soft to-soft">
         <Container>
           <Section>
             <div className="max-w-screen-lg mx-auto space-y-5 lg:space-y-10">
               <Title>
-                new fav{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                  tracks
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                  new fav tracks
                 </span>
               </Title>
               <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
@@ -63,59 +62,66 @@ export default async function Tracks() {
           </Section>
         </Container>
       </section>
-      <section className="bg-primary-light">
-        <Section>
-          <div className="space-y-5 max-w-screen-lg mx-auto">
-            <Subtitle className="text-default">Top Tracks</Subtitle>
-            <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
-            <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
-              {toptracks.track.map((track, i) => (
-                <li
-                  key={track.url}
-                  className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
-                >
-                  <Heading>
-                    {track.name}
-                    <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
-                  </Heading>
+      <section className="bg-gradient-to-b from-soft via-soft to-alternative-offset">
+        <Container>
+          <Section>
+            <div className="space-y-5 max-w-screen-lg mx-auto">
+              <Subtitle className="text-primary-dark">Top Tracks</Subtitle>
+              <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
+              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
+                {toptracks.track.map((track, i) => (
+                  <li
+                    key={track.url}
+                    className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
+                  >
+                    <Heading>
+                      {track.name}
+                      <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
+                    </Heading>
 
-                  <p className="space-x-2">
-                    <span className="italic font-bold">{track.artist.name}</span>
-                    <Legend>*</Legend>
-                    <Legend>{track.playcount} plays</Legend>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Section>
+                    <p className="space-x-2">
+                      <span className="italic font-bold">{track.artist.name}</span>
+                      <Legend>*</Legend>
+                      <Legend>{track.playcount} plays</Legend>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </Container>
       </section>
-      <Container>
-        <Section>
-          <div className="space-y-5 max-w-screen-lg mx-auto">
-            <Subtitle>Loved Tracks</Subtitle>
-            <SubtitleLegend>* last added *</SubtitleLegend>
-            <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
-              {lovedtracks.track.map((track, i) => (
-                <li
-                  key={track.url}
-                  className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
-                >
-                  <Heading>
-                    {track.name}
-                    <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
-                  </Heading>
-                  <p className="space-x-2">
-                    <LegendItalicBold>{track.artist.name}</LegendItalicBold>
-                    <Legend> {track.date && <>*</>}</Legend>
-                    <Legend>{formatDate(track.date["#text"] as unknown as Date, "en-US")}</Legend>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Section>
-      </Container>
+      <section className="bg-gradient-to-b from-alternative-offset via-alternative-offset to-soft">
+        <Container>
+          <Section>
+            <div className="space-y-5 max-w-screen-lg mx-auto">
+              <Subtitle className="text-secondary">Loved Tracks</Subtitle>
+              <SubtitleLegend className="text-secondary">* last added *</SubtitleLegend>
+              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
+                {lovedtracks.track.map((track, i) => (
+                  <li
+                    key={track.url}
+                    className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
+                  >
+                    <Heading className="text-secondary">
+                      {track.name}
+                      <LinkYouTube
+                        className="text-secondary hover:!text-secondary"
+                        query={`${track.name}${" "}${track.artist.name}`}
+                      />
+                    </Heading>
+                    <p className="space-x-2">
+                      <LegendItalicBold>{track.artist.name}</LegendItalicBold>
+                      <Legend> {track.date && <>*</>}</Legend>
+                      <Legend>{formatDate(track.date["#text"] as unknown as Date, "en-US")}</Legend>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+        </Container>
+      </section>
     </>
   );
 }

@@ -4,7 +4,7 @@ type Props = {
   className?: string;
 };
 
-export const YTMusic: FC<Props> = ({ className = "text-primary w-5 h-5" }) => {
+export const YTMusic: FC<Props> = ({ className = "w-5 h-5" }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className={className}>
       <path

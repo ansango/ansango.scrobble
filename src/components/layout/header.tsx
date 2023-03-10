@@ -73,7 +73,7 @@ const ThemeChanger = () => {
 export const Header: FC<Props> = ({ nav }) => {
   return (
     <header>
-      <Container className="pt-6 sm:py-0">
+      <Container className="pt-6 sm:py-0 bg-gradient-to-b from-soft to-soft">
         <Section className="py-6 lg:!py-0 ">
           <div className="max-w-screen-lg mx-auto">
             <div className="flex justify-between items-center">

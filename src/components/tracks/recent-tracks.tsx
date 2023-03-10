@@ -22,7 +22,7 @@ export const RecentTracks = () => {
   return (
     <Section>
       <div className="space-y-5 max-w-screen-lg mx-auto">
-        <Subtitle>
+        <Subtitle className="text-primary-dark">
           Recent Tracks
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +40,7 @@ export const RecentTracks = () => {
             </g>
           </svg>
         </Subtitle>
-        <SubtitleLegend>* last played *</SubtitleLegend>
+        <SubtitleLegend className="text-primary-dark">* last played *</SubtitleLegend>
         <ul className="grid gap-5 grid-cols-12">
           {recenttracks?.track?.map((track, index) => {
             if (

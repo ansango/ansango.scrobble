@@ -17,7 +17,7 @@ type Props = {
 
 export const Footer: FC<Props> = ({ links, social }) => {
   return (
-    <footer className="bg-offset">
+    <footer className="bg-gradient-to-b from-soft to-soft">
       <Container>
         <Section>
           <div className="grid md:grid-cols-12 w-full max-w-screen-lg mx-auto gap-5">
