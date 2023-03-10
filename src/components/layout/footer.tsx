@@ -17,21 +17,28 @@ type Props = {
 
 export const Footer: FC<Props> = ({ links, social }) => {
   return (
-    <footer className="bg-offset">
+    <footer className="bg-gradient-to-b from-soft to-soft">
       <Container>
         <Section>
           <div className="grid md:grid-cols-12 w-full max-w-screen-lg mx-auto gap-5">
             <ul className="col-span-12 md:col-span-3">
               {links.map((item, i) => (
                 <li key={`${item.label}-${i}`}>
-                  <Link href={`/${item.href}`}>{item.label}</Link>
+                  <Link className="highlight" href={`/${item.href}`}>
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
             <ul className="col-span-12 md:col-span-3">
               {social.map((item, i) => (
                 <li key={`${item.label}-${i}-external`}>
-                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="highlight"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {item.label}
                   </a>
                 </li>

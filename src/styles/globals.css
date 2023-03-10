@@ -3,22 +3,68 @@
 @tailwind utilities;
 
 [data-theme="light"] {
-  --color-primary: theme("colors.pink.500");
-  --color-secondary: theme("colors.indigo.500");
+  --color-primary: theme("colors.pink.600");
+  --color-secondary: theme("colors.indigo.600");
   --color-text: theme("colors.gray.900");
   --color-text-offset: theme("colors.gray.600");
-  --color-background: theme("colors.gray.50");
+
+  --color-text-primary-light: theme("colors.pink.200");
+  --color-text-primary-dark: theme("colors.pink.900");
+  --color-text-secondary-light: theme("colors.indigo.200");
+  --color-text-secondary-dark: theme("colors.indigo.800");
+
+  --color-background: theme("colors.pink.50" / 10%);
   --color-background-offset: theme("colors.gray.100");
+
+  --color-background-soft: theme("colors.pink.50");
+  --color-background-soft-offset: theme("colors.pink.100");
+  --color-background-hard: theme("colors.pink.900");
+
+  --color-background-alternative: theme("colors.indigo.50");
+  --color-background-alternative-offset: theme("colors.indigo.100");
+  --color-background-alternative-hard: theme("colors.indigo.900");
+
+  --color-gradient: theme("colors.gray.50");
+  --color-gradient-offset: theme("colors.gray.100");
+
+  --color-gradient-soft: theme("colors.pink.50");
+  --color-gradient-soft-offset: theme("colors.pink.100");
+  --color-gradient-alternative: theme("colors.indigo.50");
+  --color-gradient-alternative-offset: theme("colors.indigo.100");
+
   --color-border: theme("colors.gray.900" / 10%);
 }
 
 [data-theme="dark"] {
-  --color-primary: theme("colors.pink.400");
-  --color-secondary: theme("colors.indigo.400");
+  --color-primary: theme("colors.pink.300");
+  --color-secondary: theme("colors.indigo.300");
   --color-text: theme("colors.gray.50");
   --color-text-offset: theme("colors.gray.400");
+
+  --color-text-primary-light: theme("colors.pink.700");
+  --color-text-primary-dark: theme("colors.pink.100");
+  --color-text-secondary-light: theme("colors.indigo.700");
+  --color-text-secondary-dark: theme("colors.indigo.100");
+
   --color-background: theme("colors.gray.900");
   --color-background-offset: theme("colors.gray.800");
+
+  --color-background-soft: theme("colors.gray.800" / 30%);
+  --color-background-soft-offset: theme("colors.pink.900");
+  --color-background-hard: theme("colors.gray.900");
+
+  --color-background-alternative: theme("colors.indigo.800");
+  --color-background-alternative-offset: theme("colors.gray.900");
+  --color-background-alternative-hard: theme("colors.gray.900");
+
+  --color-gradient: theme("colors.gray.900");
+  --color-gradient-offset: theme("colors.gray.800");
+
+  --color-gradient-soft: theme("colors.pink.800" / 10%);
+  --color-gradient-soft-offset: theme("colors.pink.700");
+  --color-gradient-alternative: theme("colors.indigo.900");
+  --color-gradient-alternative-offset: theme("colors.indigo.800");
+
   --color-border: theme("colors.gray.50" / 10%);
 }
 
@@ -45,7 +91,11 @@ h3 {
 }
 
 a {
-  @apply hover:text-secondary hover:underline font-semibold;
+  @apply font-semibold;
+}
+
+a.highlight {
+  @apply hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-secondary hover:via-primary hover:to-pink-300;
 }
 
 .legend {

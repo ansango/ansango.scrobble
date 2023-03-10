@@ -19,16 +19,17 @@ export const Subtitle: FC<{
 
 export const Heading: FC<{
   children: ReactNode;
-}> = ({ children }) => {
-  return <h3>{children}</h3>;
+  className?: string;
+}> = ({ children, className }) => {
+  return <h3 className={className}>{children}</h3>;
 };
 
 export const SubtitleLegend: FC<{
   children: ReactNode;
-}> = ({ children }) => {
-  return (
-    <span className="font-serif text-primary text-sm tracking-normal font-normal">{children}</span>
-  );
+  className?: string;
+}> = ({ children, className }) => {
+  const cn = `font-serif text-primary text-sm tracking-normal font-normal ${className}`;
+  return <span className={cn}>{children}</span>;
 };
 
 export const LegendItalicBold: FC<{
@@ -47,12 +48,11 @@ export const Legend: FC<{
 
 export const LinkYouTube: FC<{
   query: string;
-}> = ({ query }) => {
+  className?: string;
+}> = ({ query, className }) => {
+  const cn = `inline-block ml-2 ${className}`;
   return (
-    <LinkExternal
-      href={`https://music.youtube.com/search?q=${query}`}
-      className="inline-block ml-2"
-    >
+    <LinkExternal href={`https://music.youtube.com/search?q=${query}`} className={cn}>
       <YTMusic />
     </LinkExternal>
   );
