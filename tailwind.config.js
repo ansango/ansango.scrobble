@@ -34,6 +34,12 @@ module.exports = {
       },
       borderColor: {
         default: "var(--color-border)",
+        primary: "var(--color-border-primary)",
+        secondary: "var(--color-border-secondary)",
+        "primary-light": "var(--color-border-primary-light)",
+        "primary-dark": "var(--color-border-primary-dark)",
+        "secondary-light": "var(--color-border-secondary-light)",
+        "secondary-dark": "var(--color-border-secondary-dark)",
       },
       gradientColorStops: {
         default: "var(--color-gradient)",
@@ -44,8 +50,8 @@ module.exports = {
         "alternative-offset": "var(--color-gradient-alternative-offset)",
         "primary-light": "var(--color-text-primary-light)",
         "primary-dark": "var(--color-text-primary-dark)",
-        "secondary-light": "var(--color-text-primary-light)",
-        "secondary-dark": "var(--color-text-primary-dark)",
+        "secondary-light": "var(--color-text-secondary-light)",
+        "secondary-dark": "var(--color-text-secondary-dark)",
       },
     },
   },

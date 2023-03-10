@@ -70,7 +70,7 @@ export default async function Tracks() {
                       key={track.url}
                       className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
                     >
-                      <Subtitle className="text-default lg:text-3xl max-w-screen-sm">
+                      <Subtitle className="text-default text-2xl lg:text-3xl max-w-screen-sm">
                         {track.name}
 
                         {favTracks.map((track, i) => {
@@ -79,7 +79,7 @@ export default async function Tracks() {
                           }
                         })}
                       </Subtitle>
-                      <Heading className="font-sans text-offset lowercase lg:text-xl">
+                      <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
                         {track.artist["#text"]}{" "}
                         <LinkYouTube query={`${track.name} ${track.artist["#text"]}`} />
                       </Heading>
@@ -91,12 +91,14 @@ export default async function Tracks() {
           </Section>
         </Container>
       </section>
-      <section className="bg-gradient-to-b from-soft via-soft to-soft-offset">
+      <section className="bg-gradient-to-b from-alternative-offset via-alternative-offset to-soft-offset">
         <Container>
           <Section>
             <div className="space-y-5 max-w-screen-lg mx-auto">
-              <Subtitle className="text-primary-dark">
-                Top Tracks
+              <Subtitle className="text-secondary-dark">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-secondary to-secondary-dark">
+                  Top Tracks
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
@@ -113,14 +115,16 @@ export default async function Tracks() {
                   </g>
                 </svg>
               </Subtitle>
-              <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
+              <SubtitleLegend className="text-secondary">
+                * {convertPeriod(period)} *
+              </SubtitleLegend>
               <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
                 {toptracks.track.map((track, i) => (
                   <li
                     key={track.url}
                     className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
                   >
-                    <Heading>
+                    <Heading className="text-secondary">
                       {track.name}
                       <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
                     </Heading>
@@ -137,12 +141,14 @@ export default async function Tracks() {
           </Section>
         </Container>
       </section>
-      <section className="bg-gradient-to-b from-soft-offset via-alternative-offset to-soft">
+      <section className="bg-gradient-to-b from-soft-offset via-soft-offset to-soft-offset">
         <Container>
           <Section>
             <div className="space-y-5 max-w-screen-lg mx-auto">
-              <Subtitle className="text-secondary">
-                Loved Tracks
+              <Subtitle className="text-primary-dark">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">
+                  Loved Tracks
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1em"
@@ -159,19 +165,16 @@ export default async function Tracks() {
                   </g>
                 </svg>
               </Subtitle>
-              <SubtitleLegend className="text-secondary">* last added *</SubtitleLegend>
+              <SubtitleLegend className="primary">* last added *</SubtitleLegend>
               <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
                 {lovedtracks.track.map((track, i) => (
                   <li
                     key={track.url}
                     className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
                   >
-                    <Heading className="text-secondary">
+                    <Heading className="text-primary">
                       {track.name}
-                      <LinkYouTube
-                        className="text-secondary hover:!text-secondary"
-                        query={`${track.name}${" "}${track.artist.name}`}
-                      />
+                      <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
                     </Heading>
                     <p className="space-x-2">
                       <LegendItalicBold>{track.artist.name}</LegendItalicBold>
