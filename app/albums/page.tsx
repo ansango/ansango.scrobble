@@ -103,7 +103,7 @@ export default async function Albums() {
       <div className="bg-gradient-to-b from-soft-offset to-soft">
         <Container>
           <Section className="space-y-5">
-            <div className="px-5">
+            <div>
               <Subtitle className="text-primary-dark">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-dark">
                   Top Albums
@@ -126,34 +126,32 @@ export default async function Albums() {
               </Subtitle>
               <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
             </div>
-            <ul className="grid grid-cols-12 gap-5 lg:gap-10">
+            <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
               {topalbums.album.map((album, index) => {
                 return (
-                  <li
-                    key={`${album.name}-${index}`}
-                    className="col-span-12 md:col-span-6 xl:col-span-4 border-2 hover:border-2 border-primary-light hover:border-primary-dark rounded-lg h-28 p-2 cursor-pointer flex items-center gap-5"
-                  >
-                    <div className="flex-shrink-0">
+                  <li key={`${album.name}-${index}`} className="flex gap-2 lg:items-start group">
+                    <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
                       <Image
-                        className="rounded-md"
+                        className="rounded-md h-16 w-16 sm:h-32 sm:w-32 object-cover"
                         src={album.image[3]["#text"]}
                         alt={album.name}
-                        width={50}
-                        height={50}
+                        width={300}
+                        height={300}
                       />
                     </div>
-                    <div>
+
+                    <div className="w-full">
                       <Heading>
                         <span className="line-clamp-2">{album.name}</span>
                       </Heading>
 
-                      <p className="space-x-2">
+                      <p className="space-x-2 line-clamp-1">
                         <LegendItalicBold>{album.artist.name}</LegendItalicBold>
                         <Legend>*</Legend>
                         <Legend>{album.playcount} plays</Legend>
                       </p>
                       <LinkYouTube
-                        className="text-primary hidden"
+                        className="text-primary"
                         query={`${album.name} ${album.artist.name}`}
                       />
                     </div>
