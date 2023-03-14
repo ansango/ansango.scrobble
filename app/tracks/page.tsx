@@ -81,8 +81,11 @@ export default async function Tracks() {
                       </Subtitle>
                       <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
                         {track.artist["#text"]}{" "}
-                        <LinkYouTube query={`${track.name} ${track.artist["#text"]}`} />
                       </Heading>
+                      <LinkYouTube
+                        query={`${track.name} ${track.artist["#text"]}`}
+                        className="text-offset"
+                      />
                     </li>
                   );
                 })}
@@ -124,16 +127,17 @@ export default async function Tracks() {
                     key={track.url}
                     className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
                   >
-                    <Heading className="text-secondary">
-                      {track.name}
-                      <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
-                    </Heading>
+                    <Heading className="text-secondary">{track.name}</Heading>
 
                     <p className="space-x-2">
                       <span className="italic font-bold">{track.artist.name}</span>
                       <Legend>*</Legend>
                       <Legend>{track.playcount} plays</Legend>
                     </p>
+                    <LinkYouTube
+                      className="text-secondary"
+                      query={`${track.name}${" "}${track.artist.name}`}
+                    />
                   </li>
                 ))}
               </ul>
@@ -172,15 +176,16 @@ export default async function Tracks() {
                     key={track.url}
                     className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
                   >
-                    <Heading className="text-primary">
-                      {track.name}
-                      <LinkYouTube query={`${track.name}${" "}${track.artist.name}`} />
-                    </Heading>
+                    <Heading className="text-primary">{track.name}</Heading>
                     <p className="space-x-2">
                       <LegendItalicBold>{track.artist.name}</LegendItalicBold>
                       <Legend> {track.date && <>*</>}</Legend>
                       <Legend>{formatDate(track.date["#text"] as unknown as Date, "en-US")}</Legend>
                     </p>
+                    <LinkYouTube
+                      className="text-primary"
+                      query={`${track.name}${" "}${track.artist.name}`}
+                    />
                   </li>
                 ))}
               </ul>

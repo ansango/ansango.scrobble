@@ -17,6 +17,7 @@ import { convertPeriod } from "@/lib";
 
 const {
   userApiMethods: { getTopAlbums, getWeeklyAlbumChart },
+  albumApiMethods: { getInfo },
 } = lastFmClient();
 
 const user: UserName = "ansango";
@@ -28,7 +29,23 @@ const to: To = Math.floor(Date.now() / 1000).toString();
 
 const getFavAlbums = async ({ limit }: { limit: string }) => {
   const { weeklyalbumchart } = await getWeeklyAlbumChart({ user, from, to });
-  return weeklyalbumchart.album.filter((album) => parseInt(album["@attr"].rank) <= parseInt(limit));
+  const albums = weeklyalbumchart.album.filter(
+    (album) => parseInt(album["@attr"].rank) <= parseInt(limit)
+  );
+
+  return await Promise.all(
+    albums.map(({ artist, name }) => {
+      return getInfo({ album: name, artist: artist["#text"] }).then((res) => {
+        return {
+          name: res.album.name,
+          artist: res.album.artist,
+          image: res.album.image,
+          url: res.album.url,
+          mbid: res.album.mbid,
+        };
+      });
+    })
+  );
 };
 
 const Icon = () => {
@@ -54,44 +71,52 @@ const Icon = () => {
 
 export default async function Albums() {
   const { topalbums } = await getTopAlbums({ user, period, limit });
-  const favAlbums = await getFavAlbums({ limit: "3" });
+  const favAlbums = await getFavAlbums({ limit: "6" });
 
   return (
     <>
       <section className="bg-gradient-to-b from-soft to-soft">
         <Container>
           <Section>
-            <div className="max-w-screen-lg mx-auto space-y-5 lg:space-y-10">
-              <Title>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
-                  weekly records
-                </span>
-              </Title>
+            <div className="mx-auto space-y-10 xl:space-y-20">
+              <div className="mx-auto max-w-screen-lg">
+                <Title>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                    weekly records
+                  </span>
+                </Title>
+              </div>
               <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
-                {favAlbums.map((album, i) => {
+                {favAlbums.map((album) => {
                   return (
                     <li
                       key={album.url}
-                      className={`col-span-12 ${i === 0 ? "xl:col-span-12" : "xl:col-span-6"}`}
+                      className={`col-span-12 xl:col-span-4 space-y-5 mx-auto max-w-xs w-full`}
                     >
-                      <Subtitle className={`text-default max-w-screen-sm text-2xl lg:text-3xl`}>
-                        {album.name}
+                      <div>
+                        <Image
+                          className="rounded-sm"
+                          src={album.image[3]["#text"]}
+                          alt={album.name}
+                          width={250}
+                          height={250}
+                        />
+                      </div>
+                      <div>
+                        <Subtitle
+                          className={`text-default text-2xl lg:text-3xl max-w-xs line-clamp-2`}
+                        >
+                          {album.name} <Icon />
+                        </Subtitle>
+                        <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
+                          {album.artist}
+                        </Heading>
 
-                        {favAlbums.map((track, i) => {
-                          if (i < 3) {
-                            return <Icon key={track.url} />;
-                          }
-                        })}
-                      </Subtitle>
-                      <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
-                        {album.artist["#text"]}{" "}
-                      </Heading>
-                      <p>
                         <LinkYouTube
                           className="text-offset"
-                          query={`${album.name} ${album.artist["#text"]}`}
+                          query={`${album.name} ${album.artist}`}
                         />
-                      </p>
+                      </div>
                     </li>
                   );
                 })}
@@ -126,13 +151,13 @@ export default async function Albums() {
               </Subtitle>
               <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
             </div>
-            <ul className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8">
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
               {topalbums.album.map((album, index) => {
                 return (
-                  <li key={`${album.name}-${index}`} className="flex gap-2 lg:items-start group">
+                  <li key={`${album.name}-${index}`} className="flex gap-2 lg:items-start">
                     <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
                       <Image
-                        className="rounded-md h-16 w-16 sm:h-32 sm:w-32 object-cover"
+                        className="rounded-sm h-16 w-16 sm:h-32 sm:w-32 object-cover"
                         src={album.image[3]["#text"]}
                         alt={album.name}
                         width={300}

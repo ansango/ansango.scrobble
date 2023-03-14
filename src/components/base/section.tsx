@@ -50,7 +50,7 @@ export const LinkYouTube: FC<{
   query: string;
   className?: string;
 }> = ({ query, className }) => {
-  const cn = `inline-block ml-2 ${className}`;
+  const cn = `inline-block ${className}`;
   return (
     <LinkExternal href={`https://music.youtube.com/search?q=${query}`} className={cn}>
       <YTMusic />
