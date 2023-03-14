@@ -99,7 +99,7 @@ export default async function Albums() {
                       <div className="relative">
                         <Image
                           className="rounded-sm opacity-80"
-                          src={album.image[3]["#text"]}
+                          src={album.image[2]["#text"]}
                           alt={album.name}
                           width={300}
                           height={300}
