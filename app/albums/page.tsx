@@ -165,7 +165,7 @@ export default async function Albums() {
                     <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
                       <Image
                         className="rounded-sm h-16 w-16 sm:h-32 sm:w-32 object-cover"
-                        src={album.image[3]["#text"]}
+                        src={album.image[2]["#text"]}
                         alt={album.name}
                         width={300}
                         height={300}
