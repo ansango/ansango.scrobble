@@ -7,7 +7,6 @@ import {
   Heading,
   Legend,
   LegendItalicBold,
-  LinkSpotify,
   LinkYouTube,
   Section,
   Subtitle,
