@@ -63,6 +63,10 @@ export default async function Tracks() {
                   new fav tracks
                 </span>
               </Title>
+              <SubtitleLegend className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                * {formatDate(new Date(parseInt(from) * 1000))} -{" "}
+                {formatDate(new Date(parseInt(to) * 1000))} *
+              </SubtitleLegend>
               <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
                 {favTracks.map((track, i) => {
                   return (

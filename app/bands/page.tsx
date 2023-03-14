@@ -1,4 +1,4 @@
-import type { Period, TopArtists } from "lastfm-client-ts";
+import type { From, Period, To, TopArtists, UserName } from "lastfm-client-ts";
 import { lastFmClient } from "lastfm-client-ts";
 
 import {
@@ -6,18 +6,36 @@ import {
   Heading,
   Legend,
   LinkExternal,
+  LinkYouTube,
   Section,
   Subtitle,
   SubtitleLegend,
+  Title,
 } from "@/components";
-import { convertPeriod } from "@/lib";
+import { convertPeriod, formatDate } from "@/lib";
 
 const {
-  userApiMethods: { getTopArtists },
-  artistApiMethods: { getSimilar },
+  userApiMethods: { getTopArtists, getWeeklyArtistChart },
+  artistApiMethods: { getSimilar, getInfo },
 } = lastFmClient();
 
+const user: UserName = "ansango";
+const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
+const to: To = Math.floor(Date.now() / 1000).toString();
 const period: Period = "3month";
+
+const getFavArtists = async ({ limit }: { limit: string }) => {
+  const { weeklyartistchart } = await getWeeklyArtistChart({ user, from, to });
+  const artists = weeklyartistchart.artist.filter(
+    (artist) => parseInt(artist["@attr"].rank) <= parseInt(limit)
+  );
+
+  return await Promise.all(
+    artists.map(({ name }) => {
+      return getInfo({ artist: name });
+    })
+  );
+};
 
 const getArtist = async (topartists: TopArtists) => {
   const artists = await Promise.all(
@@ -36,14 +54,72 @@ const getArtist = async (topartists: TopArtists) => {
   return artists;
 };
 
+const Icon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="0.5em"
+      height="0.5em"
+      viewBox="0 0 36 36"
+      className="inline-flex ml-2"
+    >
+      <path
+        fill="#DA2F47"
+        d="M4.042 27.916c4.89.551 9.458-1.625 13.471-5.946c4.812-5.182 5-13 5-14s11.31-3.056 11 5c-.43 11.196-7.43 20.946-19.917 21.916c-5.982.465-9.679-.928-11.387-2.345c-2.69-2.231-.751-4.916 1.833-4.625z"
+      ></path>
+      <path
+        fill="#77B255"
+        d="M30.545 6.246c.204-1.644.079-3.754-.747-4.853c-1.111-1.479-4.431-.765-3.569.113c.96.979 2.455 2.254 2.401 4.151c-.044-.01-.085-.022-.13-.032c-3.856-.869-6.721 1.405-7.167 2.958c-.782 2.722 4.065.568 4.68 1.762c1.82 3.53 3.903.155 4.403 1.28s4.097 4.303 4.097.636c0-3.01-1.192-4.903-3.968-6.015z"
+      ></path>
+    </svg>
+  );
+};
+
 export default async function Bands() {
-  const { topartists } = await getTopArtists({ user: "ansango", period, limit: "20" });
+  const { topartists } = await getTopArtists({ user, period, limit: "20" });
 
   const artists = await getArtist(topartists);
-
+  const favArtists = await getFavArtists({ limit: "9" });
   return (
     <>
-      <div className="bg-gradient-to-b from-soft via-soft-offset to-soft">
+      <section className="bg-gradient-to-b from-soft to-soft">
+        <Container>
+          <Section>
+            <div className="mx-auto space-y-10 xl:space-y-20 max-w-screen-lg">
+              <Title>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                  the obsessions
+                </span>
+              </Title>
+              <SubtitleLegend className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                * {formatDate(new Date(parseInt(from) * 1000))} -{" "}
+                {formatDate(new Date(parseInt(to) * 1000))} *
+              </SubtitleLegend>
+              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
+                {favArtists.map(({ artist }) => {
+                  return (
+                    <li
+                      key={artist.url}
+                      className={`col-span-12 xl:col-span-4 space-y-5 max-w-xs w-full`}
+                    >
+                      <div>
+                        <Subtitle
+                          className={`text-default text-2xl lg:text-3xl max-w-xs line-clamp-2`}
+                        >
+                          {artist.name} <Icon />
+                        </Subtitle>
+
+                        <LinkYouTube className="text-offset" query={`${artist.name}`} />
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </Section>
+        </Container>
+      </section>
+      <div className="bg-gradient-to-b from-soft-offset to-soft">
         <Container>
           <Section>
             <div className="space-y-5 max-w-screen-lg mx-auto">
