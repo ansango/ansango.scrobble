@@ -14,46 +14,6 @@ import {
 } from "@/components";
 import { convertPeriod, formatDate } from "@/lib";
 
-const {
-  userApiMethods: { getTopArtists, getWeeklyArtistChart },
-  artistApiMethods: { getSimilar, getInfo },
-} = lastFmClient();
-
-const user: UserName = "ansango";
-const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
-const to: To = Math.floor(Date.now() / 1000).toString();
-const period: Period = "3month";
-
-const getFavArtists = async ({ limit }: { limit: string }) => {
-  const { weeklyartistchart } = await getWeeklyArtistChart({ user, from, to });
-  const artists = weeklyartistchart.artist.filter(
-    (artist) => parseInt(artist["@attr"].rank) <= parseInt(limit)
-  );
-
-  return await Promise.all(
-    artists.map(({ name }) => {
-      return getInfo({ artist: name });
-    })
-  );
-};
-
-const getArtist = async (topartists: TopArtists) => {
-  const artists = await Promise.all(
-    topartists.artist
-      .map(({ name }) => getSimilar({ artist: name, limit: "6" }))
-      .map((p) => {
-        return p.then((res) => {
-          return {
-            name: res.similarartists["@attr"].artist,
-            similars: res.similarartists.artist,
-          };
-        });
-      })
-  );
-
-  return artists;
-};
-
 const Icon = () => {
   return (
     <svg
@@ -75,11 +35,44 @@ const Icon = () => {
   );
 };
 
+const {
+  userApiMethods: { getTopArtists, getWeeklyArtistChart },
+  artistApiMethods: { getSimilar, getInfo },
+} = lastFmClient();
+
+const user: UserName = "ansango";
+const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
+const to: To = Math.floor(Date.now() / 1000).toString();
+const period: Period = "3month";
+
+const getFavArtists = async ({ limit }: { limit: string }) => {
+  const {
+    weeklyartistchart: { artist },
+  } = await getWeeklyArtistChart({ user, from, to });
+  const artists = artist.filter((artist) => parseInt(artist["@attr"].rank) <= parseInt(limit));
+  return await Promise.all(artists.map(({ name: artist }) => getInfo({ artist })));
+};
+
+const getArtist = async ({ artist }: TopArtists) => {
+  return await Promise.all(
+    artist
+      .map(({ name }) => getSimilar({ artist: name, limit: "6" }))
+      .map((promise) => {
+        return promise.then(({ similarartists }) => {
+          return {
+            name: similarartists["@attr"].artist,
+            similars: similarartists.artist,
+          };
+        });
+      })
+  );
+};
+
 export default async function Bands() {
   const { topartists } = await getTopArtists({ user, period, limit: "20" });
-
   const artists = await getArtist(topartists);
   const favArtists = await getFavArtists({ limit: "9" });
+
   return (
     <>
       <section className="bg-gradient-to-b from-soft to-soft">

@@ -14,22 +14,6 @@ import {
 } from "@/components";
 import { convertPeriod, formatDate } from "@/lib";
 
-const {
-  userApiMethods: { getTopTracks, getLovedTracks, getWeeklyTrackChart },
-} = lastFmClient();
-
-const user: UserName = "ansango";
-const limit: Limit = "10";
-const period: Period = "3month";
-
-const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
-const to: To = Math.floor(Date.now() / 1000).toString();
-
-const getFavTracks = async ({ limit }: { limit: string }) => {
-  const { weeklytrackchart } = await getWeeklyTrackChart({ user, from, to });
-  return weeklytrackchart.track.filter((track) => parseInt(track["@attr"].rank) <= parseInt(limit));
-};
-
 const Icon = () => {
   return (
     <svg
@@ -45,6 +29,23 @@ const Icon = () => {
       />
     </svg>
   );
+};
+
+const {
+  userApiMethods: { getTopTracks, getLovedTracks, getWeeklyTrackChart },
+} = lastFmClient();
+
+const user: UserName = "ansango";
+const limit: Limit = "10";
+const period: Period = "3month";
+const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
+const to: To = Math.floor(Date.now() / 1000).toString();
+
+const getFavTracks = async ({ limit }: { limit: string }) => {
+  const {
+    weeklytrackchart: { track },
+  } = await getWeeklyTrackChart({ user, from, to });
+  return track.filter((track) => parseInt(track["@attr"].rank) <= parseInt(limit));
 };
 
 export default async function Tracks() {
