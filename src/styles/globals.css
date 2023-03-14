@@ -11,7 +11,7 @@
   --color-text-primary-light: theme("colors.pink.200");
   --color-text-primary-dark: theme("colors.pink.900");
   --color-text-secondary-light: theme("colors.indigo.200");
-  --color-text-secondary-dark: theme("colors.indigo.800");
+  --color-text-secondary-dark: theme("colors.indigo.900");
 
   --color-background: theme("colors.pink.50" / 10%);
   --color-background-offset: theme("colors.gray.100");
@@ -33,6 +33,12 @@
   --color-gradient-alternative-offset: theme("colors.indigo.100");
 
   --color-border: theme("colors.gray.900" / 10%);
+  --color-border-primary: theme("colors.pink.600");
+  --color-border-secondary: theme("colors.indigo.600");
+  --color-border-primary-light: theme("colors.pink.200");
+  --color-border-primary-dark: theme("colors.pink.800");
+  --color-border-secondary-light: theme("colors.indigo.200");
+  --color-border-secondary-dark: theme("colors.indigo.800");
 }
 
 [data-theme="dark"] {
@@ -66,6 +72,12 @@
   --color-gradient-alternative-offset: theme("colors.indigo.800");
 
   --color-border: theme("colors.gray.50" / 10%);
+  --color-border-primary: theme("colors.pink.50");
+  --color-border-secondary: theme("colors.indigo.50");
+  --color-border-primary-light: theme("colors.pink.700");
+  --color-border-primary-dark: theme("colors.pink.300");
+  --color-border-secondary-light: theme("colors.indigo.700");
+  --color-border-secondary-dark: theme("colors.indigo.100");
 }
 
 html {

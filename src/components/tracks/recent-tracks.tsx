@@ -17,7 +17,7 @@ import {
 import { Section } from "../section";
 
 export const RecentTracks = () => {
-  const { data: recenttracks } = useSWR<TracksType>("/api/hello", fetcher);
+  const { data: recenttracks } = useSWR<TracksType>("/api/recent-tracks", fetcher);
 
   return (
     <Section>
@@ -53,10 +53,7 @@ export const RecentTracks = () => {
 
             return (
               <li key={`${track.url}-${index}`} className="col-span-12 lg:col-span-8">
-                <Heading>
-                  {track.name}
-                  <LinkYouTube query={`${track.name} ${" "}${track.artist["#text"]}`} />
-                </Heading>
+                <Heading>{track.name}</Heading>
                 <p className="space-x-2">
                   <LegendItalicBold> {track.artist["#text"]}</LegendItalicBold>
                   <Legend>*</Legend>
@@ -70,6 +67,10 @@ export const RecentTracks = () => {
                     )}
                   </Legend>
                 </p>
+                <LinkYouTube
+                  query={`${track.name} ${" "}${track.artist["#text"]}`}
+                  className="text-primary"
+                />
               </li>
             );
           })}

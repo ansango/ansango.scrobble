@@ -2232,10 +2232,10 @@ language-tags@=1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-lastfm-client-ts@^1.0.4-alpha.0:
-  version "1.0.4-alpha.0"
-  resolved "https://registry.yarnpkg.com/lastfm-client-ts/-/lastfm-client-ts-1.0.4-alpha.0.tgz#ec1761a512f85377ae0a897c13dbd4785cc9906c"
-  integrity sha512-wXYwPXTKCYXXw7Jp5dl6IkjIxlkcuwpQslF5AcyNE0XRc5IBgCsbx564wx8by+oYWIqKOxA676nDAZBVXc3/wA==
+lastfm-client-ts@^1.0.4-alpha.2:
+  version "1.0.4-alpha.2"
+  resolved "https://registry.yarnpkg.com/lastfm-client-ts/-/lastfm-client-ts-1.0.4-alpha.2.tgz#d9ed865f93bbc61ec5ed3659b5ad620dd92f2ac5"
+  integrity sha512-08O+JRQkgFGQbwZJ2+o3x5I04d3ZOYyG3p5d+GHY3i3rDcOGgZ/GQbu2Oli/kPv5Yg3fIJq3crWTVhKdFfTbNg==
   dependencies:
     cross-fetch "^3.1.5"
     dotenv "^16.0.3"

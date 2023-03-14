@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "lastfm-client-ts": "^1.0.4-alpha.0",
+    "lastfm-client-ts": "^1.0.4-alpha.2",
     "next": "13.2.4-canary.7",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
