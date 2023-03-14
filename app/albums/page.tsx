@@ -13,7 +13,7 @@ import {
   SubtitleLegend,
   Title,
 } from "@/components";
-import { convertPeriod } from "@/lib";
+import { convertPeriod, formatDate } from "@/lib";
 
 const {
   userApiMethods: { getTopAlbums, getWeeklyAlbumChart },
@@ -52,10 +52,8 @@ const Icon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="0.5em"
-      height="0.5em"
       viewBox="0 0 36 36"
-      className="inline-flex ml-2"
+      className="inline-flex ml-2 w-6 h-6"
     >
       <path
         fill="#BB1A34"
@@ -85,38 +83,47 @@ export default async function Albums() {
                     weekly records
                   </span>
                 </Title>
+                <SubtitleLegend className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-light">
+                  * {formatDate(new Date(parseInt(from) * 1000))} -{" "}
+                  {formatDate(new Date(parseInt(to) * 1000))} *
+                </SubtitleLegend>
               </div>
-              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12">
+
+              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12 max-w-screen-lg mx-auto">
                 {favAlbums.map((album) => {
                   return (
                     <li
                       key={album.url}
-                      className={`col-span-12 xl:col-span-4 space-y-5 mx-auto max-w-xs w-full`}
+                      className={`col-span-12 sm:col-span-6 md:col-span-4 max-w-[15rem] w-full mx-auto sm:mx-0 flex flex-col gap-5`}
                     >
-                      <div>
+                      <div className="relative">
                         <Image
-                          className="rounded-sm"
+                          className="rounded-sm opacity-80"
                           src={album.image[3]["#text"]}
                           alt={album.name}
-                          width={250}
-                          height={250}
+                          width={300}
+                          height={300}
                         />
+                        <div className="bg-gradient-to-r from-transparent via-soft-offset to-transparent absolute bottom-2 left-2 flex gap-2 rounded-md py-1 px-1.5">
+                          <LinkYouTube
+                            className="text-offset"
+                            query={`${album.name} ${album.artist}`}
+                          />
+                        </div>
+                        <div className="absolute bottom-2 right-2">
+                          <Icon />
+                        </div>
                       </div>
-                      <div>
-                        <Subtitle
-                          className={`text-default text-2xl lg:text-3xl max-w-xs line-clamp-2`}
-                        >
-                          {album.name} <Icon />
-                        </Subtitle>
-                        <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
-                          {album.artist}
-                        </Heading>
-
-                        <LinkYouTube
-                          className="text-offset"
-                          query={`${album.name} ${album.artist}`}
-                        />
-                      </div>
+                      <article>
+                        <div>
+                          <Subtitle className={`text-default text-2xl max-w-xs line-clamp-2`}>
+                            {album.name}
+                          </Subtitle>
+                          <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
+                            {album.artist}
+                          </Heading>
+                        </div>
+                      </article>
                     </li>
                   );
                 })}

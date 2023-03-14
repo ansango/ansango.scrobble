@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 
-import { YTMusic } from "../icons";
+import { Spotify, YTMusic } from "../icons";
 
 import { LinkExternal } from "./link-external";
 
@@ -54,6 +54,18 @@ export const LinkYouTube: FC<{
   return (
     <LinkExternal href={`https://music.youtube.com/search?q=${query}`} className={cn}>
       <YTMusic />
+    </LinkExternal>
+  );
+};
+
+export const LinkSpotify: FC<{
+  query: string;
+  className?: string;
+}> = ({ query, className }) => {
+  const cn = `inline-block ${className}`;
+  return (
+    <LinkExternal href={`https://open.spotify.com/search/${query}`} className={cn}>
+      <Spotify />
     </LinkExternal>
   );
 };
