@@ -15,39 +15,6 @@ import {
 } from "@/components";
 import { convertPeriod, formatDate } from "@/lib";
 
-const {
-  userApiMethods: { getTopAlbums, getWeeklyAlbumChart },
-  albumApiMethods: { getInfo },
-} = lastFmClient();
-
-const user: UserName = "ansango";
-const limit: Limit = "20";
-const period: Period = "12month";
-
-const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
-const to: To = Math.floor(Date.now() / 1000).toString();
-
-const getFavAlbums = async ({ limit }: { limit: string }) => {
-  const { weeklyalbumchart } = await getWeeklyAlbumChart({ user, from, to });
-  const albums = weeklyalbumchart.album.filter(
-    (album) => parseInt(album["@attr"].rank) <= parseInt(limit)
-  );
-
-  return await Promise.all(
-    albums.map(({ artist, name }) => {
-      return getInfo({ album: name, artist: artist["#text"] }).then((res) => {
-        return {
-          name: res.album.name,
-          artist: res.album.artist,
-          image: res.album.image,
-          url: res.album.url,
-          mbid: res.album.mbid,
-        };
-      });
-    })
-  );
-};
-
 const Icon = () => {
   return (
     <svg
@@ -64,6 +31,39 @@ const Icon = () => {
         d="M15.921 2.513A9.453 9.453 0 0 0 9.5 0A9.5 9.5 0 0 0 0 9.5c0 2.479.958 4.73 2.514 6.421l-.014.014l8.605 8.605l13.234-13.622l-8.418-8.405z"
       ></path>
     </svg>
+  );
+};
+
+const {
+  userApiMethods: { getTopAlbums, getWeeklyAlbumChart },
+  albumApiMethods: { getInfo },
+} = lastFmClient();
+
+const user: UserName = "ansango";
+const limit: Limit = "20";
+const period: Period = "12month";
+const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
+const to: To = Math.floor(Date.now() / 1000).toString();
+
+const getFavAlbums = async ({ limit }: { limit: string }) => {
+  const {
+    weeklyalbumchart: { album },
+  } = await getWeeklyAlbumChart({ user, from, to });
+  const albums = album.filter((album) => parseInt(album["@attr"].rank) <= parseInt(limit));
+
+  return await Promise.all(
+    albums.map(({ artist, name }) =>
+      getInfo({ album: name, artist: artist["#text"] }).then(
+        ({ album: { name, artist, image, url } }) => {
+          return {
+            name,
+            artist,
+            image,
+            url,
+          };
+        }
+      )
+    )
   );
 };
 
