@@ -5,6 +5,10 @@ module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        "2xs": "320px",
+        xs: "480px",
+      },
       fontFamily: {
         sans: ["var(--sans)", ...fontFamily.sans],
         serif: ["var(--serif)", ...fontFamily.serif],

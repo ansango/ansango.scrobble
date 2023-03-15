@@ -1,6 +1,7 @@
 import type { From, Limit, Period, To, UserName } from "lastfm-client-ts";
 import { lastFmClient } from "lastfm-client-ts";
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Container,
@@ -15,28 +16,10 @@ import {
 } from "@/components";
 import { convertPeriod, formatDate } from "@/lib";
 
-const Icon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 36 36"
-      className="inline-flex ml-2 w-6 h-6"
-    >
-      <path
-        fill="#BB1A34"
-        d="m33.207 19.773l-8.868-8.855L11.105 24.54l8.684 8.685l.001-.001A9.472 9.472 0 0 0 26.5 36c5.246 0 9.5-4.254 9.5-9.5a9.47 9.47 0 0 0-2.793-6.727z"
-      ></path>
-      <path
-        fill="#FDCB58"
-        d="M15.921 2.513A9.453 9.453 0 0 0 9.5 0A9.5 9.5 0 0 0 0 9.5c0 2.479.958 4.73 2.514 6.421l-.014.014l8.605 8.605l13.234-13.622l-8.418-8.405z"
-      ></path>
-    </svg>
-  );
-};
-
 const {
   userApiMethods: { getTopAlbums, getWeeklyAlbumChart },
-  albumApiMethods: { getInfo },
+  albumApiMethods: { getInfo: getAlbumInfo },
+  artistApiMethods: { getInfo: getArtistInfo },
 } = lastFmClient();
 
 const user: UserName = "ansango";
@@ -45,15 +28,27 @@ const period: Period = "12month";
 const from: From = (Math.floor(Date.now() / 1000) - 604800).toString();
 const to: To = Math.floor(Date.now() / 1000).toString();
 
+const getTags = async ({ artist }: { artist: string }) => {
+  return getArtistInfo({ artist }).then(
+    ({
+      artist: {
+        tags: { tag },
+      },
+    }) => {
+      return tag;
+    }
+  );
+};
+
 const getFavAlbums = async ({ limit }: { limit: string }) => {
   const {
     weeklyalbumchart: { album },
   } = await getWeeklyAlbumChart({ user, from, to });
   const albums = album.filter((album) => parseInt(album["@attr"].rank) <= parseInt(limit));
 
-  return await Promise.all(
-    albums.map(({ artist, name }) =>
-      getInfo({ album: name, artist: artist["#text"] }).then(
+  const favs = await Promise.all(
+    albums.map(({ artist, name }) => {
+      return getAlbumInfo({ album: name, artist: artist["#text"] }).then(
         ({ album: { name, artist, image, url } }) => {
           return {
             name,
@@ -62,14 +57,53 @@ const getFavAlbums = async ({ limit }: { limit: string }) => {
             url,
           };
         }
-      )
-    )
+      );
+    })
+  );
+  return await Promise.all(
+    favs.map(async (album) => {
+      const tags = await getTags({ artist: album.artist });
+      return {
+        ...album,
+        tags,
+      };
+    })
+  );
+};
+
+const getPopulatedTopAlbums = async () => {
+  const { topalbums } = await getTopAlbums({ user, period, limit });
+  const albums = topalbums.album;
+
+  const populatedAlbums = await Promise.all(
+    albums.map(({ artist, name, playcount }) => {
+      return getAlbumInfo({ album: name, artist: artist.name }).then(
+        ({ album: { name, artist, image, url } }) => {
+          return {
+            name,
+            artist,
+            image,
+            url,
+            playcount,
+          };
+        }
+      );
+    })
+  );
+  return await Promise.all(
+    populatedAlbums.map(async (album) => {
+      const tags = await getTags({ artist: album.artist });
+      return {
+        ...album,
+        tags,
+      };
+    })
   );
 };
 
 export default async function Albums() {
-  const { topalbums } = await getTopAlbums({ user, period, limit });
-  const favAlbums = await getFavAlbums({ limit: "6" });
+  const topalbums = await getPopulatedTopAlbums();
+  const favAlbums = await getFavAlbums({ limit: "4" });
 
   return (
     <>
@@ -89,45 +123,61 @@ export default async function Albums() {
                 </SubtitleLegend>
               </div>
 
-              <ul className="grid gap-5 xl:gap-y-20 grid-cols-12 max-w-screen-lg mx-auto">
-                {favAlbums.map((album) => {
-                  return (
-                    <li
-                      key={album.url}
-                      className={`col-span-12 sm:col-span-6 md:col-span-4 max-w-[15rem] w-full mx-auto sm:mx-0 flex flex-col gap-5`}
-                    >
-                      <div className="relative">
-                        <Image
-                          className="rounded-sm opacity-80"
-                          src={album.image[3]["#text"]}
-                          alt={album.name}
-                          width={300}
-                          height={300}
-                        />
-                        <div className="bg-gradient-to-r from-transparent via-soft-offset to-transparent absolute bottom-2 left-2 flex gap-2 rounded-md py-1 px-1.5">
-                          <LinkYouTube
-                            className="text-offset"
-                            query={`${album.name} ${album.artist}`}
-                          />
+              <div className="relative mx-auto max-w-7xl">
+                <ul className="grid gap-12 mx-auto mt-12 sm:grid-cols-2  xl:grid-cols-4 lg:max-w-none">
+                  {favAlbums.map((album) => {
+                    return (
+                      <li className="flex flex-col mb-12 overflow-hidden" key={album.url}>
+                        <Link href={`/`}>
+                          <div className="flex-shrink-0 relative">
+                            <Image
+                              className="rounded-sm opacity-80 w-full"
+                              src={album.image[3]["#text"]}
+                              alt={album.name}
+                              width={300}
+                              height={300}
+                            />
+                            <div className="bg-gradient-to-r from-transparent via-soft-offset to-transparent absolute bottom-2 left-2 flex gap-2 rounded-md py-0.5 px-1.5 hover:border-primary-light border-2 border-transparent hover:bg-primary">
+                              <LinkYouTube
+                                className="text-offset"
+                                query={`${album.name} ${album.artist}`}
+                              />
+                            </div>
+                          </div>
+                        </Link>
+                        <div className="flex flex-col justify-between flex-1 space-y-3">
+                          <div className="flex-1 h-full">
+                            <div className="flex flex-wrap gap-2 py-5">
+                              {album.tags
+                                .map((tag) => {
+                                  return (
+                                    <span
+                                      className="text-xs lowercase px-1.5 border-2 border-secondary-light rounded-md text-offset hover:text-secondary hover:border-secondary"
+                                      key={tag.name}
+                                    >
+                                      {tag.name}
+                                    </span>
+                                  );
+                                })
+                                .slice(0, 3)}
+                            </div>
+
+                            <Link href="/">
+                              <Subtitle className={`text-default text-2xl line-clamp-2`}>
+                                {album.name}
+                              </Subtitle>
+                            </Link>
+
+                            <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
+                              {album.artist}
+                            </Heading>
+                          </div>
                         </div>
-                        <div className="absolute bottom-2 right-2">
-                          <Icon />
-                        </div>
-                      </div>
-                      <article>
-                        <div>
-                          <Subtitle className={`text-default text-2xl max-w-xs line-clamp-2`}>
-                            {album.name}
-                          </Subtitle>
-                          <Heading className="font-sans text-offset lowercase text-lg xl:text-xl">
-                            {album.artist}
-                          </Heading>
-                        </div>
-                      </article>
-                    </li>
-                  );
-                })}
-              </ul>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </Section>
         </Container>
@@ -158,8 +208,8 @@ export default async function Albums() {
               </Subtitle>
               <SubtitleLegend>* {convertPeriod(period)} *</SubtitleLegend>
             </div>
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
-              {topalbums.album.map((album, index) => {
+            <ul className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-12">
+              {topalbums.map((album, index) => {
                 return (
                   <li key={`${album.name}-${index}`} className="flex gap-2 lg:items-start">
                     <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
@@ -178,13 +228,27 @@ export default async function Albums() {
                       </Heading>
 
                       <p className="space-x-2 line-clamp-1">
-                        <LegendItalicBold>{album.artist.name}</LegendItalicBold>
+                        <LegendItalicBold>{album.artist}</LegendItalicBold>
                         <Legend>*</Legend>
                         <Legend>{album.playcount} plays</Legend>
                       </p>
+                      <div className="flex flex-wrap gap-2 py-2">
+                        {album.tags
+                          .map((tag) => {
+                            return (
+                              <span
+                                className="text-xs lowercase px-1.5 border-2 border-primary-light rounded-md text-offset hover:text-primary hover:border-primary"
+                                key={tag.name}
+                              >
+                                {tag.name}
+                              </span>
+                            );
+                          })
+                          .slice(0, 3)}
+                      </div>
                       <LinkYouTube
                         className="text-primary"
-                        query={`${album.name} ${album.artist.name}`}
+                        query={`${album.name} ${album.artist}`}
                       />
                     </div>
                   </li>
