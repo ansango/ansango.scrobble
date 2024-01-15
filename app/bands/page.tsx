@@ -153,7 +153,7 @@ export default async function Bands() {
                         <ul className="grid gap-5 grid-cols-12">
                           {artists
                             .filter((a) => a.name === artist.name)[0]
-                            .similars.map((similar, index) => {
+                            ?.similars.map((similar, index) => {
                               return (
                                 <li
                                   key={`${similar.name}-${index}`}
