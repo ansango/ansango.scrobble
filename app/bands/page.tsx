@@ -68,6 +68,8 @@ const getArtist = async ({ artist }: TopArtists) => {
   );
 };
 
+export const revalidate = 604800;
+
 export default async function Bands() {
   const { topartists } = await getTopArtists({ user, period, limit: "20" });
   const artists = await getArtist(topartists);

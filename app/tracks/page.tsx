@@ -48,6 +48,8 @@ const getFavTracks = async ({ limit }: { limit: string }) => {
   return track.filter((track) => parseInt(track["@attr"].rank) <= parseInt(limit));
 };
 
+export const revalidate = 604800;
+
 export default async function Tracks() {
   const { toptracks } = await getTopTracks({ user, period, limit });
   const { lovedtracks } = await getLovedTracks({ user, limit });

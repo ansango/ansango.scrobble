@@ -71,6 +71,8 @@ const getFavAlbums = async ({ limit }: { limit: string }) => {
   );
 };
 
+export const revalidate = 604800;
+
 const getPopulatedTopAlbums = async () => {
   const { topalbums } = await getTopAlbums({ user, period, limit });
   const albums = topalbums.album;
